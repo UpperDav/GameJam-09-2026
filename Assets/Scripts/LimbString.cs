@@ -6,9 +6,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(TargetJoint2D))]
 public class LimbString : MonoBehaviour
 {
-    [Header("Input")]
-    public Key key = Key.A;
-
     [Header("String target")]
     public Transform stringAnchor;
 
@@ -28,7 +25,9 @@ public class LimbString : MonoBehaviour
     private Rigidbody2D rb;
     private int misses;
 
-    [SerializeField] private ControllerInput controllerInput;
+    [Header("Input")]
+    public ControllerInput controllerInput;
+    public string actionName = "Blue";
 
     void Awake()
     {
@@ -47,12 +46,13 @@ public class LimbString : MonoBehaviour
         if (IsBroken)
             return;
 
-        var keyControl = Keyboard.current[key];
-
-        if (keyControl.wasPressedThisFrame)
+        if (controllerInput.IsPressed(actionName))
+        {
+            Debug.Log("Pulse");
             Pull();
+        }
 
-        if (keyControl.wasReleasedThisFrame)
+        if (controllerInput.IsReleased(actionName))
             Release();
 
         if (targetJoint.enabled && stringAnchor != null)

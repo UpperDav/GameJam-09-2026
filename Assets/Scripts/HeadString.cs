@@ -20,15 +20,22 @@ public class HeadString : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Update()
     {
-        
+        var keyControl = Keyboard.current[key];
+
+        if (keyControl.wasPressedThisFrame)
+            Pulse();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Pulse()
     {
-        
+        rb.AddForce(pulseDirection.normalized * pulseForce, ForceMode2D.Impulse);
+        OnPulse?.Invoke();
+        Debug.Log("Pulse");
     }
+
+    public void RegisterHit() { }
+
+    public void RegisterMiss() { }
 }

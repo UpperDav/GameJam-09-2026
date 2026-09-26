@@ -184,10 +184,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 751310714, guid: c4ca7450a678a9b41974da0482f3a3f8, type: 3}
+    - target: {fileID: 4331602970176469082, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
+      propertyPath: pulledFrequency
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4585184114995136991, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 751310714, guid: c4ca7450a678a9b41974da0482f3a3f8, type: 3}
+    - target: {fileID: 4899509136301047248, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
+      propertyPath: pulledFrequency
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4903537224450548608, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -215,6 +223,14 @@ PrefabInstance:
     - target: {fileID: 7226660108943953539, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.0018
+      objectReference: {fileID: 0}
+    - target: {fileID: 7525412194445694675, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
+      propertyPath: pulledFrequency
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537217386915412288, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
+      propertyPath: pulledFrequency
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8734146365324643134, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -286,6 +302,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 772892875330261502, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1907850333}
+    - targetCorrespondingSourceObject: {fileID: 772892875330261502, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1907850335}
   m_SourcePrefab: {fileID: 100100000, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
 --- !u!1 &1393525306
 GameObject:
@@ -406,10 +425,10 @@ HingeJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
+    m_LowerAngle: -30
+    m_UpperAngle: 30
 --- !u!50 &1907850334
 Rigidbody2D:
   serializedVersion: 5
@@ -437,6 +456,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1907850335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907850330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b24c478e0ea50c48b31f7809a92b5ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeadString
+  key: 1
+  pulseForce: 6
+  pulseDirection: {x: 0, y: 1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
