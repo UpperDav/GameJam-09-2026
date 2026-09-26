@@ -26,6 +26,18 @@ public class StringManager : MonoBehaviour
 
     private int brokenCount;
     private bool allStringsBroken;
+    private AudioSource audioSource;
+
+    // Audio Clips
+    public AudioClip ropeSwinging;
+    public AudioClip neckBreak;
+    public AudioClip ropeBreak;
+    public AudioClip choking;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void OnEnable()
     {
@@ -53,6 +65,7 @@ public class StringManager : MonoBehaviour
 
     void HandleLimbBreak()
     {
+        audioSource.PlayOneShot(ropeBreak);
         brokenCount++;
         int remaining = limbStrings.Count - brokenCount;
 
@@ -66,6 +79,8 @@ public class StringManager : MonoBehaviour
 
             if (bodyRigidbody != null)
             {
+                audioSource.PlayOneShot(ropeSwinging);
+                audioSource.PlayOneShot(choking);
                 StartCoroutine(FlailCoroutine());
             }
         }
@@ -92,7 +107,8 @@ public class StringManager : MonoBehaviour
         }
         if (controllerInput != null)
             controllerInput.IsEnabled = false;
+        audioSource.Stop();
+        audioSource.PlayOneShot(neckBreak);
         headSpriteRenderer.sprite = deadHeadSprite;
-
     }
 }

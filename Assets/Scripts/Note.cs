@@ -42,12 +42,12 @@ namespace PuppetHero
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             canBeHit = true;
         }
 
-        private void OnCollisionExit2D(Collision2D collision)
+        private void OnTriggerExit2D(Collider2D collision)
         {
             (gauge ?? getGauge()).Decrease(value);
             parent!.KillNote(gameObject);

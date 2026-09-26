@@ -73,7 +73,7 @@ namespace PuppetHero
 
             note.GetComponent<Note>().parent = this;
             note.GetComponent<Transform>().parent = GetComponent<Transform>();
-            note.GetComponent<Transform>().position = spawnPoint;
+            note.GetComponent<Transform>().localPosition = spawnPoint;
 
             notes.Add(note);
         }
@@ -91,6 +91,7 @@ namespace PuppetHero
         public void KillNote(GameObject note)
         {
             notes.Remove(note);
+            Destroy(note);
         }
 
         public void Cut()
