@@ -9,14 +9,18 @@ namespace PuppetHero
 
         [SerializeField] private int InitValue = 100;
 
+        public bool PublicHappy { get; private set; }
+
         private int value;
         private int maxValue;
+        private int cumlativeValue = 0;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             value = InitValue;
             maxValue = InitValue;
+            PublicHappy = false;
         }
 
         // Update is called once per frame
@@ -59,14 +63,12 @@ namespace PuppetHero
         {
             int prevValue = value;
             value = Mathf.Min(maxValue, value + v);
-            cumlativeValue += v;
-        }
-        public void GoodPerformance()
-        {
+            ++cumlativeValue;
+
             if (cumlativeValue >= 10)
             {
                 PublicHappy = true;
-            } // Verifie si le public va pouvoir s'afficher au bout de 10 touches reussit
+            }
         }
     }
 }
