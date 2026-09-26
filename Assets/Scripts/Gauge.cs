@@ -9,6 +9,7 @@ namespace PuppetHero
         static private readonly int InitValue = 100;
 
         private int value = InitValue;
+        private int maxValue = InitValue;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -33,14 +34,20 @@ namespace PuppetHero
             }
             else if (prevValue >= 25 && value < 25)
             {
+                maxValue = 25;
+
                 // TODO: Cut the third string
             }
             else if (prevValue >= 50 && value < 50)
             {
+                maxValue = 50;
+
                 // TODO: Cut the second string
             }
             else if (prevValue >= 75 && value < 75)
             {
+                maxValue = 75;
+
                 // TODO: Cut the first string
             }
         }
@@ -48,20 +55,7 @@ namespace PuppetHero
         public void Increase(int v)
         {
             int prevValue = value;
-            value = Mathf.Min(100, value + v);
-
-            if (prevValue < 75 && value >= 75)
-            {
-                // TODO: Fix the first string
-            }
-            else if (prevValue < 50 && value >= 50)
-            {
-                // TODO: Fix the second string
-            }
-            else if (prevValue < 25 && value >= 25)
-            {
-                // TODO: Fix the third string
-            }
+            value = Mathf.Min(maxValue, value + v);
         }
     }
 }

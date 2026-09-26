@@ -43,8 +43,6 @@ public class ControllerInput : ScriptableObject
         keyboard = Keyboard.current;
         gamepad = Gamepad.current;
         mouse = Mouse.current;
-
-        // TODO: Read config file for input settings, maybe?
     }
 
     private void EnsureInitialized()

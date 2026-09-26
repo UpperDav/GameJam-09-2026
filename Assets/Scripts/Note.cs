@@ -7,7 +7,7 @@ namespace PuppetHero
     public class Note : MonoBehaviour
     {
 
-        static private float speed = 100f;
+        static internal float speed = 0f;
         static private Vector3 dir = Vector3.down;
         static private Gauge? gauge;
 
@@ -35,7 +35,7 @@ namespace PuppetHero
         {
             GetComponent<Transform>().position += speed * Time.deltaTime * dir;
 
-            if (canBeHit && controller.IsPressed(controlName))
+            if (canBeHit && controller!.IsPressed(controlName))
             {
                 (gauge ?? getGauge()).Increase(value);
                 parent!.KillNote(gameObject);
