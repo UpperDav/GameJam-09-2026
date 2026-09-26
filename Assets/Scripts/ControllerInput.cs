@@ -31,6 +31,8 @@ public class ControllerInput : ScriptableObject
     public float leftTrigger => gamepad?.leftTrigger.value ?? 0f;
     public float rightTrigger => gamepad?.rightTrigger.value ?? 0f;
 
+    public bool IsEnabled { get; set; } = true;
+
     private void OnEnable()
     {
         InitializeInputDevices();
@@ -55,6 +57,9 @@ public class ControllerInput : ScriptableObject
 
     public bool IsPressed(string name)
     {
+        if (!IsEnabled)
+            return false;
+
         EnsureInitialized();
         Input input = inputs.Find(x => x.name == name);
         if (input == null)
@@ -68,6 +73,8 @@ public class ControllerInput : ScriptableObject
 
     public bool IsHeld(string name)
     {
+        if (!IsEnabled) return false;
+
         EnsureInitialized();
         Input input = inputs.Find(x => x.name == name);
         if (input == null)
@@ -77,6 +84,7 @@ public class ControllerInput : ScriptableObject
     }
     public bool IsReleased(string name)
     {
+        if (!IsEnabled) return false;
         EnsureInitialized();
         Input input = inputs.Find(x => x.name == name);
         if (input == null)
@@ -97,6 +105,7 @@ public class ControllerInput : ScriptableObject
 
     public bool GetMouse(int button)
     {
+        if (!IsEnabled) return false;
         EnsureInitialized();
         ButtonControl input = this[button];
         return input.isPressed;

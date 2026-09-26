@@ -127,17 +127,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 103723738227093787, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
+      propertyPath: flailForceMax
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 213996512897374355, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
       propertyPath: m_Name
       value: Puppet
-      objectReference: {fileID: 0}
-    - target: {fileID: 1465804809297431319, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.052
-      objectReference: {fileID: 0}
-    - target: {fileID: 4670914773718070470, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.052
       objectReference: {fileID: 0}
     - target: {fileID: 9121387999693698606, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
       propertyPath: m_LocalPosition.x
