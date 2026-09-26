@@ -22,8 +22,6 @@ public class LimbString : MonoBehaviour
     public System.Action OnBreak;
 
     private TargetJoint2D targetJoint;
-    private Rigidbody2D rb;
-    private int misses;
     private bool hasBeenBroken = false;
 
     [Header("Input")]
@@ -33,8 +31,6 @@ public class LimbString : MonoBehaviour
     void Awake()
     {
         targetJoint = GetComponent<TargetJoint2D>();
-        rb = GetComponent<Rigidbody2D>();
-
         targetJoint.autoConfigureTarget = false;
         targetJoint.frequency = pulledFrequency;
         targetJoint.dampingRatio = pulledDampingRatio;
