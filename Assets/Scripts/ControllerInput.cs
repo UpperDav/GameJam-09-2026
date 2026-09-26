@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -43,6 +44,8 @@ public class ControllerInput : ScriptableObject
         keyboard = Keyboard.current;
         gamepad = Gamepad.current;
         mouse = Mouse.current;
+
+        // TODO: Read config file for input settings, maybe?
     }
 
     private void EnsureInitialized()
@@ -55,9 +58,6 @@ public class ControllerInput : ScriptableObject
 
     public bool IsPressed(string name)
     {
-        if (!IsEnabled)
-            return false;
-
         EnsureInitialized();
         Input input = inputs.Find(x => x.name == name);
         if (input == null)
@@ -71,8 +71,6 @@ public class ControllerInput : ScriptableObject
 
     public bool IsHeld(string name)
     {
-        if (!IsEnabled) return false;
-
         EnsureInitialized();
         Input input = inputs.Find(x => x.name == name);
         if (input == null)
@@ -82,7 +80,6 @@ public class ControllerInput : ScriptableObject
     }
     public bool IsReleased(string name)
     {
-        if (!IsEnabled) return false;
         EnsureInitialized();
         Input input = inputs.Find(x => x.name == name);
         if (input == null)
@@ -103,7 +100,6 @@ public class ControllerInput : ScriptableObject
 
     public bool GetMouse(int button)
     {
-        if (!IsEnabled) return false;
         EnsureInitialized();
         ButtonControl input = this[button];
         return input.isPressed;

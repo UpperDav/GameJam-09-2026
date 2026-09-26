@@ -16,7 +16,7 @@ public class LimbString : MonoBehaviour
 
     [Header("Breaking")]
     public int maxMisses = 3;
-    public bool isBroken  = false;
+    public bool isBroken = false;
     public bool IsPulled { get; private set; }
 
     public System.Action OnBreak;
@@ -52,6 +52,9 @@ public class LimbString : MonoBehaviour
         }
 
         if (isBroken)
+            return;
+
+        if (controllerInput == null || !controllerInput.IsEnabled)
             return;
 
         if (controllerInput.IsPressed(actionName))

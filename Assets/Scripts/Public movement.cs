@@ -47,7 +47,6 @@ public class Publicmovement : MonoBehaviour
             {
                 transform.position = positionInitiale;
                 publicPresent = true;
-                Debug.Log("Public is back");
             }
 
         }

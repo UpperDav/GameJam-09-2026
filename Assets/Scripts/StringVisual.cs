@@ -20,13 +20,22 @@ public class StringVisual : MonoBehaviour
         line.positionCount = Mathf.Max(2, segments);
         line.useWorldSpace = true;
 
-        if (limbString != null)
-            limbString.OnBreak += HandleBreak;
-        else
+        if (limbString == null)
             Debug.LogWarning("LimbString reference is missing on StringVisual.", this);
     }
 
-    void OnDestroy()
+    void OnEnable()
+    {
+        if (limbString != null)
+        {
+            limbString.OnBreak += HandleBreak;
+
+            if (limbString.isBroken)
+                HandleBreak();
+        }
+    }
+
+    void OnDisable()
     {
         if (limbString != null)
             limbString.OnBreak -= HandleBreak;

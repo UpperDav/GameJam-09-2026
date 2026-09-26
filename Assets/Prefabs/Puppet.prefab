@@ -567,10 +567,10 @@ MonoBehaviour:
   headSpriteRenderer: {fileID: 4903537224450548608}
   deadHeadSprite: {fileID: 2846757562373631199, guid: c4ca7450a678a9b41974da0482f3a3f8, type: 3}
   bodyRigidbody: {fileID: 4087053919678640745}
-  controllerInput: {fileID: 0}
+  controllerInput: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
   flailDuration: 3.5
-  flailForceMin: 5
-  flailForceMax: 15
+  flailForceMin: 15
+  flailForceMax: 50
   flailForceInterval: 0.1
 --- !u!1 &575234142890133573
 GameObject:

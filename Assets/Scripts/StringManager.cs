@@ -13,29 +13,42 @@ public class StringManager : MonoBehaviour
     public Sprite deadHeadSprite;
     public Rigidbody2D bodyRigidbody;
 
-    [Header("Input")]
-    public ControllerInput controllerInput;
-
     [Header("Death Flail")]
     public float flailDuration = 3.5f;
     public float flailForceMin = 5f;
     public float flailForceMax = 30f;
     public float flailForceInterval = 0.1f;
 
+    [Header("Input")]
+    public ControllerInput controllerInput;
+
     public System.Action OnAllStringBroken;
 
     private int brokenCount;
+    private bool allStringsBroken;
 
     void OnEnable()
     {
+        brokenCount = 0;
+        allStringsBroken = false;
+
+        if (controllerInput != null)
+            controllerInput.IsEnabled = true;
+
         foreach (var s in limbStrings)
-            s.OnBreak += HandleLimbBreak;
+        {
+            if (s != null)
+                s.OnBreak += HandleLimbBreak;
+        }
     }
 
     void OnDisable()
     {
         foreach (var s in limbStrings)
-            s.OnBreak -= HandleLimbBreak;
+        {
+            if (s != null)
+                s.OnBreak -= HandleLimbBreak;
+        }
     }
 
     void HandleLimbBreak()
@@ -43,13 +56,13 @@ public class StringManager : MonoBehaviour
         brokenCount++;
         int remaining = limbStrings.Count - brokenCount;
 
-        if (remaining <= 0)
+        if (remaining <= 0 && !allStringsBroken)
         {
-            OnAllStringBroken?.Invoke();
-
-            // Disable input
+            allStringsBroken = true;
             if (controllerInput != null)
                 controllerInput.IsEnabled = false;
+
+            OnAllStringBroken?.Invoke();
 
             if (bodyRigidbody != null)
             {
@@ -77,6 +90,9 @@ public class StringManager : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
+        if (controllerInput != null)
+            controllerInput.IsEnabled = false;
         headSpriteRenderer.sprite = deadHeadSprite;
+
     }
 }
