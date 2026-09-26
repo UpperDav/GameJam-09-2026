@@ -1,13 +1,17 @@
 using System;
 using UnityEngine;
 
-public class ScreenResizeTrigger : MonoBehaviour
+namespace PuppetHero
 {
 
-    public static event Action? OnScreenResized;
-
-    private void OnRectTransformDimensionsChange()
+    public class ScreenResizeTrigger : MonoBehaviour
     {
-        OnScreenResized?.Invoke();
+
+        public static event Action? OnScreenResized;
+
+        private void OnRectTransformDimensionsChange()
+        {
+            OnScreenResized?.Invoke();
+        }
     }
 }
