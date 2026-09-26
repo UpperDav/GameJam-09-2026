@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d69937e297583884582a8be89cf1a6c5
+guid: 4f2745d0e21c7834f81627bb9fb7a1ff
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3213197688980373854
-    second: Boutton bleu_0
+      213: 6244253965951923666
+    second: "Capture_d_\xE9cran_2026-09-25_210909-removebg-preview 1_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Boutton bleu_0
+      name: "Capture_d_\xE9cran_2026-09-25_210909-removebg-preview 1_0"
       rect:
         serializedVersion: 2
-        x: 53
-        y: 53
-        width: 406
-        height: 406
+        x: 0
+        y: 0
+        width: 404
+        height: 404
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2aef733e9bd6863d0800000000000000
-      internalID: -3213197688980373854
+      spriteID: 2d573e706eb08a650800000000000000
+      internalID: 6244253965951923666
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 867ea43c9ae76d640a8a8b1fe7f6ebfb
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Boutton bleu_0: -3213197688980373854
+      "Capture_d_\xE9cran_2026-09-25_210909-removebg-preview 1_0": 6244253965951923666
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

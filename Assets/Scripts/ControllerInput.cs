@@ -6,42 +6,38 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.LowLevel;
 
-public class ControllerInput : MonoBehaviour
+[CreateAssetMenu(fileName = "ControllerInput", menuName = "Scriptable Objects/ControllerInput")]
+public class ControllerInput : ScriptableObject
 {
 
     [Serializable] class Input
     {
-        public string name;
+        public string? name;
         public Key key;
         public GamepadButton gamepad;
     };
 
-    private Keyboard keyboard;
-    private Gamepad gamepad;
-    private Mouse mouse;
+    static private ControllerInput? instance;
 
-    [SerializeField] private List<Input> inputs;
+    private Keyboard? keyboard;
+    private Gamepad? gamepad;
+    private Mouse? mouse;
 
-    public Vector2 leftStick => gamepad.leftStick.value;
-    public Vector2 rightStick => gamepad.rightStick.value;
+    [SerializeField] private List<Input> inputs = new();
 
-    public float leftTrigger => gamepad.leftTrigger.value;
-    public float rightTrigger => gamepad.rightTrigger.value;
+    public Vector2 leftStick => gamepad?.leftStick.value ?? new Vector2(0, 0);
+    public Vector2 rightStick => gamepad?.rightStick.value ?? new Vector2(0, 0);
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float leftTrigger => gamepad?.leftTrigger.value ?? 0f;
+    public float rightTrigger => gamepad?.rightTrigger.value ?? 0f;
+
+    private void Awake()
     {
         keyboard = Keyboard.current;
         gamepad = Gamepad.current;
         mouse = Mouse.current;
 
-        // TODO: Read config file for input settings
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // TODO: Read config file for input settings, maybe?
     }
 
     public bool GetInput(string name)
@@ -50,10 +46,28 @@ public class ControllerInput : MonoBehaviour
         if (input == null)
             return false;
 
-        return keyboard[input.key].isPressed || gamepad[input.gamepad].isPressed;
+        return (keyboard?[input.key].isPressed ?? false) || (gamepad?[input.gamepad].isPressed ?? false);
     }
 
-    public Vector2 mousePos => mouse.position.value;
+    private ButtonControl this[int b] => mouse == null ? new ButtonControl() : b switch
+    {
+        0 => mouse.leftButton,
+        1 => mouse.rightButton,
+        2 => mouse.middleButton,
+        3 => mouse.backButton,
+        4 => mouse.forwardButton,
+        _ => throw new ArgumentOutOfRangeException("button", b, "Unsupported Mouse button ID")
+    };
+
+    public bool GetMouse(int button)
+    {
+        ButtonControl input = this[button];
+        return input.isPressed;
+    }
+
+    public Vector2 mousePos => mouse?.position.value ?? new Vector2(0, 0);
+
+    public float mouseScroll => mouse?.scroll.value.y ?? 0f;
 
     public bool this[string name] => GetInput(name);
 }

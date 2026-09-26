@@ -1,16 +1,64 @@
+using System;
 using UnityEngine;
 
-public class Note : MonoBehaviour
+namespace PuppetHero
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public class Note : MonoBehaviour
     {
-        
+
+        static private float speed = 100f;
+        static private Vector3 dir = Vector3.down;
+        static private Gauge? gauge;
+
+        private bool canBeHit;
+
+        [SerializeField] private ControllerInput? controller;
+        [SerializeField] private string controlName = "";
+        [SerializeField] private int value = 0;
+
+        internal String? parent;
+
+        private void Awake()
+        {
+            getGauge();
+        }
+
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+            canBeHit = false;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            GetComponent<Transform>().position += speed * Time.deltaTime * dir;
+
+            if (canBeHit && controller![controlName])
+            {
+                (gauge ?? getGauge()).Increase(value);
+                parent!.KillNote(gameObject);
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            canBeHit = true;
+        }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            (gauge ?? getGauge()).Decrease(value);
+            parent!.KillNote(gameObject);
+        }
+
+        static private Gauge getGauge()
+        {
+            if (gauge == null)
+                gauge = GameObject.Find("Gauge").GetComponent<Gauge>();
+
+            return gauge;
+        }
     }
 }

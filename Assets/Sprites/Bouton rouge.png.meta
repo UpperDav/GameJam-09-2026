@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d69937e297583884582a8be89cf1a6c5
+guid: ee50446fce56e6c449103b1c9fd9575a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3213197688980373854
-    second: Boutton bleu_0
+      213: -2797227496149459151
+    second: boutton rouge_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Boutton bleu_0
+      name: boutton rouge_0
       rect:
         serializedVersion: 2
-        x: 53
-        y: 53
-        width: 406
-        height: 406
+        x: 0
+        y: 0
+        width: 404
+        height: 404
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2aef733e9bd6863d0800000000000000
-      internalID: -3213197688980373854
+      spriteID: 13f5e00a9604e29d0800000000000000
+      internalID: -2797227496149459151
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 142f24d0bdb04d44e89433f7efb7c0c4
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Boutton bleu_0: -3213197688980373854
+      boutton rouge_0: -2797227496149459151
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

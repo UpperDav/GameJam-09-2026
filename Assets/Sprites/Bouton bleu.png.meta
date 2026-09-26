@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d69937e297583884582a8be89cf1a6c5
+guid: 832f505bff286514d8912efcf66676ad
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -116,12 +116,12 @@ TextureImporter:
       name: Boutton bleu_0
       rect:
         serializedVersion: 2
-        x: 53
-        y: 53
-        width: 406
-        height: 406
+        x: 0
+        y: 0
+        width: 404
+        height: 404
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9a3c6c5da0251494faf80742ac413998
     internalID: 0
     vertices: []
     indices: 
