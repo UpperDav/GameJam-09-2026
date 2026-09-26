@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace PuppetHero
 {
@@ -7,9 +8,10 @@ namespace PuppetHero
     {
 
         static private readonly int InitValue = 100;
-
+        public bool PublicHappy = false;
         private int value = InitValue;
         private int maxValue = InitValue;
+        private int cumlativeValue = 0;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -27,7 +29,8 @@ namespace PuppetHero
         {
             int prevValue = value;
             value = Mathf.Max(0, value - v);
-
+            cumlativeValue = 0;
+            PublicHappy = false;
             if (value == 0)
             {
                 // TODO: Cut the last string => Game Over
@@ -56,6 +59,14 @@ namespace PuppetHero
         {
             int prevValue = value;
             value = Mathf.Min(maxValue, value + v);
+            cumlativeValue += v;
+        }
+        public void GoodPerformance()
+        {
+            if (cumlativeValue >= 10)
+            {
+                PublicHappy = true;
+            } // Verifie si le public va pouvoir s'afficher au bout de 10 touches reussit
         }
     }
 }
