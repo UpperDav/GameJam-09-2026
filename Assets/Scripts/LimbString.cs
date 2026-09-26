@@ -48,7 +48,6 @@ public class LimbString : MonoBehaviour
 
         if (controllerInput.IsPressed(actionName))
         {
-            Debug.Log("Pulse");
             Pull();
         }
 

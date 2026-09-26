@@ -42,8 +42,6 @@ public class ControllerInput : ScriptableObject
         gamepad = Gamepad.current;
         mouse = Mouse.current;
 
-        Debug.Log("Controller Input Initialized");
-
         // TODO: Read config file for input settings, maybe?
     }
 
@@ -58,17 +56,13 @@ public class ControllerInput : ScriptableObject
     public bool IsPressed(string name)
     {
         EnsureInitialized();
-        Debug.Log($"IsPressed: {name}");
         Input input = inputs.Find(x => x.name == name);
         if (input == null)
             return false;
-        Debug.Log($"Input found: {input.name}");
 
         bool k = (keyboard?[input.key].wasPressedThisFrame ?? false);
         bool g = (gamepad?[input.gamepad].wasPressedThisFrame ?? false);
-        Debug.Log($"Keyboard result: {k}, Gamepad result: {g}");
         bool ret = k || g;
-        Debug.Log($"IsPressed result: {ret}");
         return ret;
     }
 
