@@ -53,7 +53,25 @@ public class ControllerInput : MonoBehaviour
         return keyboard[input.key].isPressed || gamepad[input.gamepad].isPressed;
     }
 
+    private ButtonControl this[int b] => b switch
+    {
+        0 => mouse.leftButton,
+        1 => mouse.rightButton,
+        2 => mouse.middleButton,
+        3 => mouse.backButton,
+        4 => mouse.forwardButton,
+        _ => throw new ArgumentOutOfRangeException("button", b, "Unsupported Mouse button ID")
+    };
+
+    public bool GetMouse(int button)
+    {
+        ButtonControl input = this[button];
+        return input.isPressed;
+    }
+
     public Vector2 mousePos => mouse.position.value;
+
+    public float mouseScroll => mouse.scroll.value.y;
 
     public bool this[string name] => GetInput(name);
 }
