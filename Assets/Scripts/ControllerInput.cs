@@ -31,7 +31,12 @@ public class ControllerInput : ScriptableObject
     public float leftTrigger => gamepad?.leftTrigger.value ?? 0f;
     public float rightTrigger => gamepad?.rightTrigger.value ?? 0f;
 
-    private void Awake()
+    private void OnEnable()
+    {
+        InitializeInputDevices();
+    }
+
+    private void InitializeInputDevices()
     {
         keyboard = Keyboard.current;
         gamepad = Gamepad.current;
@@ -40,16 +45,47 @@ public class ControllerInput : ScriptableObject
         // TODO: Read config file for input settings, maybe?
     }
 
-    public bool GetInput(string name)
+    private void EnsureInitialized()
     {
+        if (keyboard == null || gamepad == null || mouse == null)
+        {
+            InitializeInputDevices();
+        }
+    }
+
+    public bool IsPressed(string name)
+    {
+        EnsureInitialized();
+        Input input = inputs.Find(x => x.name == name);
+        if (input == null)
+            return false;
+
+        bool k = (keyboard?[input.key].wasPressedThisFrame ?? false);
+        bool g = (gamepad?[input.gamepad].wasPressedThisFrame ?? false);
+        bool ret = k || g;
+        return ret;
+    }
+
+    public bool IsHeld(string name)
+    {
+        EnsureInitialized();
         Input input = inputs.Find(x => x.name == name);
         if (input == null)
             return false;
 
         return (keyboard?[input.key].isPressed ?? false) || (gamepad?[input.gamepad].isPressed ?? false);
     }
+    public bool IsReleased(string name)
+    {
+        EnsureInitialized();
+        Input input = inputs.Find(x => x.name == name);
+        if (input == null)
+            return false;
 
-    private ButtonControl this[int b] => mouse == null ? new ButtonControl() : b switch
+        return (keyboard?[input.key].wasReleasedThisFrame ?? false) || (gamepad?[input.gamepad].wasReleasedThisFrame ?? false);
+    }
+
+    public ButtonControl this[int b] => mouse == null ? new ButtonControl() : b switch
     {
         0 => mouse.leftButton,
         1 => mouse.rightButton,
@@ -61,6 +97,7 @@ public class ControllerInput : ScriptableObject
 
     public bool GetMouse(int button)
     {
+        EnsureInitialized();
         ButtonControl input = this[button];
         return input.isPressed;
     }
@@ -68,6 +105,4 @@ public class ControllerInput : ScriptableObject
     public Vector2 mousePos => mouse?.position.value ?? new Vector2(0, 0);
 
     public float mouseScroll => mouse?.scroll.value.y ?? 0f;
-
-    public bool this[string name] => GetInput(name);
 }

@@ -28,3 +28,6 @@ MonoBehaviour:
   - name: Yellow
     key: 21
     gamepad: 6
+  - name: Head
+    key: 1
+    gamepad: 4

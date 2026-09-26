@@ -35,7 +35,7 @@ namespace PuppetHero
         {
             GetComponent<Transform>().position += speed * Time.deltaTime * dir;
 
-            if (canBeHit && controller![controlName])
+            if (canBeHit && controller.IsPressed(controlName))
             {
                 (gauge ?? getGauge()).Increase(value);
                 parent!.KillNote(gameObject);
