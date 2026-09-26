@@ -7,16 +7,16 @@ namespace PuppetHero
     public class Gauge : MonoBehaviour
     {
 
-        static private readonly int InitValue = 100;
-        public bool PublicHappy = false;
-        private int value = InitValue;
-        private int maxValue = InitValue;
-        private int cumlativeValue = 0;
+        [SerializeField] private int InitValue = 100;
+
+        private int value;
+        private int maxValue;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            value = InitValue;
+            maxValue = InitValue;
         }
 
         // Update is called once per frame
@@ -35,21 +35,21 @@ namespace PuppetHero
             {
                 // TODO: Cut the last string => Game Over
             }
-            else if (prevValue >= 25 && value < 25)
+            else if (prevValue >= InitValue / 4 && value < InitValue / 4)
             {
-                maxValue = 25;
+                maxValue = InitValue / 4;
 
                 // TODO: Cut the third string
             }
-            else if (prevValue >= 50 && value < 50)
+            else if (prevValue >= InitValue / 2 && value < InitValue / 2)
             {
-                maxValue = 50;
+                maxValue = InitValue / 2;
 
                 // TODO: Cut the second string
             }
-            else if (prevValue >= 75 && value < 75)
+            else if (prevValue >= 3 * InitValue / 4 && value < 3 * InitValue / 4)
             {
-                maxValue = 75;
+                maxValue = 3 * InitValue / 4;
 
                 // TODO: Cut the first string
             }

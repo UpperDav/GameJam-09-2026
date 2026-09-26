@@ -10,7 +10,7 @@ namespace PuppetHero
     {
         [SerializeField] private List<GameObject> strings = new();
         [SerializeField] private float delay = 1f;
-        [SerializeField] private TextAsset trackFile;
+        [SerializeField] private TextAsset? trackFile;
         [SerializeField] private float noteSpeed = 4f;
 
         private float elapsedTime;
@@ -37,7 +37,7 @@ namespace PuppetHero
         {
             elapsedTime = 0f;
 
-            string[] lines = trackFile.text.Split('\n');
+            string[] lines = trackFile!.text.Split('\n');
             step = float.Parse(lines[0]);
 
             foreach (string line in lines.Skip(1))
