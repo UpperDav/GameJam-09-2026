@@ -229,7 +229,7 @@
       "source": "builtin",
       "dependencies": {
         "com.unity.render-pipelines.core": "17.3.0",
-        "com.unity.searcher": "4.9.5"
+        "com.unity.searcher": "4.9.3"
       }
     },
     "com.unity.test-framework": {
