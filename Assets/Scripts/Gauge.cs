@@ -7,20 +7,18 @@ namespace PuppetHero
     public class Gauge : MonoBehaviour
     {
 
-        [SerializeField] private int InitValue = 100;
-
-        public bool PublicHappy { get; private set; }
-
-        private int value;
-        private int maxValue;
+        static private readonly int InitValue = 100;
+        public bool PublicHappy = false;
+        
+        private int value = InitValue;
+       
+        private int maxValue = InitValue;
         private int cumlativeValue = 0;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            value = InitValue;
-            maxValue = InitValue;
-            PublicHappy = false;
+           
         }
 
         // Update is called once per frame
@@ -65,12 +63,16 @@ namespace PuppetHero
         {
             int prevValue = value;
             value = Mathf.Min(maxValue, value + v);
-            ++cumlativeValue;
-
+            cumlativeValue ++;
+        }
+        public void GoodPerformance()
+        {
             if (cumlativeValue >= 10)
             {
                 PublicHappy = true;
-            }
+            } // Verifie si le public va pouvoir s'afficher au bout de 10 touches reussit
+
+
         }
 
         private void CutAString()
