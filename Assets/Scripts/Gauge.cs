@@ -37,25 +37,27 @@ namespace PuppetHero
             PublicHappy = false;
             if (value == 0)
             {
-                // TODO: Cut the last string => Game Over
+                CutAString();
             }
             else if (prevValue >= InitValue / 4 && value < InitValue / 4)
             {
                 maxValue = InitValue / 4;
 
-                // TODO: Cut the third string
+                CutAString();
+
             }
             else if (prevValue >= InitValue / 2 && value < InitValue / 2)
             {
                 maxValue = InitValue / 2;
 
-                // TODO: Cut the second string
+                CutAString();
+
             }
             else if (prevValue >= 3 * InitValue / 4 && value < 3 * InitValue / 4)
             {
                 maxValue = 3 * InitValue / 4;
 
-                // TODO: Cut the first string
+                CutAString();
             }
         }
 
@@ -69,6 +71,11 @@ namespace PuppetHero
             {
                 PublicHappy = true;
             }
+        }
+
+        private void CutAString()
+        {
+
         }
     }
 }
