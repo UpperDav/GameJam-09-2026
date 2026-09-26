@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 namespace PuppetHero
@@ -7,7 +8,7 @@ namespace PuppetHero
 
     public class String : MonoBehaviour
     {
-        enum Color
+        public enum Color
         {
             blue,
             green,
@@ -32,15 +33,15 @@ namespace PuppetHero
         private void Awake()
         {
             if (bNote == null)
-                bNote = GameObject.Find("bNote");
+                bNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/BlueNote.prefab", typeof(GameObject)) as GameObject;
             if (gNote == null)
-                gNote = GameObject.Find("gNote");
+                gNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/GreenNote.prefab", typeof(GameObject)) as GameObject;
             if (pNote == null)
-                pNote = GameObject.Find("pNote");
+                pNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/PurpleNote.prefab", typeof(GameObject)) as GameObject;
             if (rNote == null)
-                rNote = GameObject.Find("rNote");
+                rNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/RedNote.prefab", typeof(GameObject)) as GameObject;
             if (yNote == null)
-                yNote = GameObject.Find("yNote");
+                yNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/YellowNote.prefab", typeof(GameObject)) as GameObject;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -55,9 +56,9 @@ namespace PuppetHero
 
         }
 
-        public void CreateNote()
+        private void CreateNodeImpl(Color c)
         {
-            GameObject? note = color switch
+            GameObject? note = c switch
             {
                 Color.blue => Instantiate(bNote),
                 Color.green => Instantiate(gNote),
@@ -71,9 +72,20 @@ namespace PuppetHero
                 throw new MissingReferenceException($"Note of color {colorName} should not be null");
 
             note.GetComponent<Note>().parent = this;
+            note.GetComponent<Transform>().parent = GetComponent<Transform>();
             note.GetComponent<Transform>().position = spawnPoint;
 
             notes.Add(note);
+        }
+
+        public void CreateNote()
+        {
+            CreateNodeImpl(color);
+        }
+
+        public void CreateNote(Color c)
+        {
+            CreateNodeImpl(c);
         }
 
         public void KillNote(GameObject note)
