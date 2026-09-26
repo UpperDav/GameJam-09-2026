@@ -16,11 +16,21 @@ public class ControllerInput : MonoBehaviour
         public GamepadButton gamepad;
     };
 
+    static private ControllerInput? instance;
+
     private Keyboard keyboard;
     private Gamepad gamepad;
     private Mouse mouse;
 
     [SerializeField] private List<Input> inputs;
+
+    static public ControllerInput Instance()
+    {
+        if (instance == null)
+            instance = new();
+
+        return instance;
+    }
 
     public Vector2 leftStick => gamepad.leftStick.value;
     public Vector2 rightStick => gamepad.rightStick.value;
