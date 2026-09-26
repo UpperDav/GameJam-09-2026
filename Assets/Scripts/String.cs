@@ -27,6 +27,8 @@ namespace PuppetHero
         [SerializeField] private Color color;
         [SerializeField] private Vector3 spawnPoint;
 
+        public bool isCut { get; private set; }
+
         private void Awake()
         {
             if (bNote == null)
@@ -44,7 +46,7 @@ namespace PuppetHero
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            isCut = false;
         }
 
         // Update is called once per frame
@@ -55,7 +57,7 @@ namespace PuppetHero
 
         public void CreateNote()
         {
-            GameObject note = color switch
+            GameObject? note = color switch
             {
                 Color.blue => Instantiate(bNote),
                 Color.green => Instantiate(gNote),
@@ -64,6 +66,9 @@ namespace PuppetHero
                 Color.yellow => Instantiate(yNote),
                 _ => throw new UnexpectedEnumValueException<Color>(color)
             };
+
+            if (note == null)
+                throw new MissingReferenceException($"Note of color {colorName} should not be null");
 
             note.GetComponent<Note>().parent = this;
             note.GetComponent<Transform>().position = spawnPoint;
@@ -75,5 +80,29 @@ namespace PuppetHero
         {
             notes.Remove(note);
         }
+
+        public void Cut()
+        {
+            isCut = true;
+
+            // TODO: Implement cutting animation
+        }
+
+        public void Repair()
+        {
+            // TODO: Implement repair animation
+
+            isCut = false;
+        }
+
+        private string colorName => color switch
+        {
+            Color.blue => "blue",
+            Color.green => "green",
+            Color.purple => "purple",
+            Color.red => "red",
+            Color.yellow => "yellow",
+            _ => throw new UnexpectedEnumValueException<Color>(color)
+        };
     }
 }
