@@ -15,7 +15,6 @@ public class LimbString : MonoBehaviour
     public float pulledMaxForce = 1000f;
 
     [Header("Breaking")]
-    public int maxMisses = 3;
     public bool isBroken = false;
     public bool IsPulled { get; private set; }
 

@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 103723738227093787, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
+      propertyPath: cameraShake
+      value: 
+      objectReference: {fileID: 1393525311}
     - target: {fileID: 213996512897374355, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
       propertyPath: m_Name
       value: Puppet
@@ -188,6 +192,7 @@ GameObject:
   - component: {fileID: 1393525308}
   - component: {fileID: 1393525307}
   - component: {fileID: 1393525310}
+  - component: {fileID: 1393525311}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -313,6 +318,20 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1393525311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393525306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7ab94e79ee6fa48943e58fac22cfe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShake
+  duration: 0.2
+  magniteude: 0.6
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

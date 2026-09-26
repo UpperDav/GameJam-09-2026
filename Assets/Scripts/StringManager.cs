@@ -22,10 +22,16 @@ public class StringManager : MonoBehaviour
     [Header("Input")]
     public ControllerInput controllerInput;
 
+    [Header("Camera")]
+    public CameraShake cameraShake;
+
     public System.Action OnAllStringBroken;
 
     private int brokenCount;
     private bool allStringsBroken;
+
+    // Audio
+
     private AudioSource audioSource;
 
     // Audio Clips
@@ -65,7 +71,10 @@ public class StringManager : MonoBehaviour
 
     void HandleLimbBreak()
     {
+        // SFX
         audioSource.PlayOneShot(ropeBreak);
+        cameraShake.ShakeDefault();
+
         brokenCount++;
         int remaining = limbStrings.Count - brokenCount;
 
