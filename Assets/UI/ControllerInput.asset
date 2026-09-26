@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93e61fc57293504da464fbeac8bee56, type: 3}
+  m_Name: ControllerInput
+  m_EditorClassIdentifier: Assembly-CSharp::ControllerInput
+  inputs:
+  - name: Blue
+    key: 15
+    gamepad: 32
+  - name: Green
+    key: 33
+    gamepad: 10
+  - name: Purple
+    key: 18
+    gamepad: 11
+  - name: Red
+    key: 20
+    gamepad: 33
+  - name: Yellow
+    key: 21
+    gamepad: 6

@@ -6,12 +6,13 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.LowLevel;
 
-public class ControllerInput : MonoBehaviour
+[CreateAssetMenu(fileName = "ControllerInput", menuName = "Scriptable Objects/ControllerInput")]
+public class ControllerInput : ScriptableObject
 {
 
     [Serializable] class Input
     {
-        public string name;
+        public string? name;
         public Key key;
         public GamepadButton gamepad;
     };
@@ -22,7 +23,7 @@ public class ControllerInput : MonoBehaviour
     private Gamepad gamepad;
     private Mouse mouse;
 
-    [SerializeField] private List<Input> inputs;
+    [SerializeField] private List<Input> inputs = new();
 
     static public ControllerInput Instance()
     {
@@ -38,20 +39,13 @@ public class ControllerInput : MonoBehaviour
     public float leftTrigger => gamepad.leftTrigger.value;
     public float rightTrigger => gamepad.rightTrigger.value;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
         keyboard = Keyboard.current;
         gamepad = Gamepad.current;
         mouse = Mouse.current;
 
         // TODO: Read config file for input settings
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public bool GetInput(string name)
