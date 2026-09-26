@@ -15,19 +15,19 @@ namespace PuppetHero
 
         private float elapsedTime;
 
-        private List<List<String.Color>> track = new();
+        private List<List<String.StringColor>> track = new();
         private float step = 1f;
         private int lastIndex = -1;
 
-        private String.Color GetColor(char c)
+        private String.StringColor GetColor(char c)
         {
             return c switch
             {
-                'b' => String.Color.blue,
-                'g' => String.Color.green,
-                'p' => String.Color.purple,
-                'r' => String.Color.red,
-                'y' => String.Color.yellow,
+                'b' => String.StringColor.blue,
+                'g' => String.StringColor.green,
+                'p' => String.StringColor.purple,
+                'r' => String.StringColor.red,
+                'y' => String.StringColor.yellow,
                 _ => throw new ArgumentException($"Cannot convert character '{c}' to a valid String.Color value")
             };
         }
@@ -42,7 +42,7 @@ namespace PuppetHero
 
             foreach (string line in lines.Skip(1))
             {
-                List<String.Color> colors = new();
+                List<String.StringColor> colors = new();
                 foreach (char c in line)
                     colors.Add(GetColor(c));
                 track.Add(colors);
@@ -59,8 +59,8 @@ namespace PuppetHero
             int index = GetIndex();
             if (index != lastIndex)
             {
-                List<String.Color> colors = track[index];
-                foreach (String.Color color in track[index])
+                List<String.StringColor> colors = track[index];
+                foreach (String.StringColor color in track[index])
                 {
                     String s = strings[(int)color].GetComponent<String>();
                     while (s.isCut)

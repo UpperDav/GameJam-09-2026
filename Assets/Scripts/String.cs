@@ -8,7 +8,7 @@ namespace PuppetHero
 
     public class String : MonoBehaviour
     {
-        public enum Color
+        public enum StringColor
         {
             blue,
             green,
@@ -25,7 +25,7 @@ namespace PuppetHero
 
         private List<GameObject> notes = new();
 
-        [SerializeField] private Color color;
+        [SerializeField] private StringColor color;
         [SerializeField] private Vector3 spawnPoint;
 
         public bool isCut { get; private set; }
@@ -56,16 +56,16 @@ namespace PuppetHero
 
         }
 
-        private void CreateNodeImpl(Color c)
+        private void CreateNodeImpl(StringColor c)
         {
             GameObject? note = c switch
             {
-                Color.blue => Instantiate(bNote),
-                Color.green => Instantiate(gNote),
-                Color.purple => Instantiate(pNote),
-                Color.red => Instantiate(rNote),
-                Color.yellow => Instantiate(yNote),
-                _ => throw new UnexpectedEnumValueException<Color>(color)
+                StringColor.blue => Instantiate(bNote),
+                StringColor.green => Instantiate(gNote),
+                StringColor.purple => Instantiate(pNote),
+                StringColor.red => Instantiate(rNote),
+                StringColor.yellow => Instantiate(yNote),
+                _ => throw new UnexpectedEnumValueException<StringColor>(color)
             };
 
             if (note == null)
@@ -83,7 +83,7 @@ namespace PuppetHero
             CreateNodeImpl(color);
         }
 
-        public void CreateNote(Color c)
+        public void CreateNote(StringColor c)
         {
             CreateNodeImpl(c);
         }
@@ -98,7 +98,7 @@ namespace PuppetHero
         {
             isCut = true;
 
-            // TODO: Implement cutting animation
+            GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
         }
 
         public void Repair()
@@ -110,12 +110,12 @@ namespace PuppetHero
 
         private string colorName => color switch
         {
-            Color.blue => "blue",
-            Color.green => "green",
-            Color.purple => "purple",
-            Color.red => "red",
-            Color.yellow => "yellow",
-            _ => throw new UnexpectedEnumValueException<Color>(color)
+            StringColor.blue => "blue",
+            StringColor.green => "green",
+            StringColor.purple => "purple",
+            StringColor.red => "red",
+            StringColor.yellow => "yellow",
+            _ => throw new UnexpectedEnumValueException<StringColor>(color)
         };
     }
 }
