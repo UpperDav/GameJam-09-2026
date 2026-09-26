@@ -1545,6 +1545,7 @@ MonoBehaviour:
   pulledDampingRatio: 0.7
   pulledMaxForce: 1000
   maxMisses: 3
+  isBroken: 0
   controllerInput: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
   actionName: Blue
 --- !u!233 &13198818331441658
@@ -2609,6 +2610,7 @@ MonoBehaviour:
   pulledDampingRatio: 0.7
   pulledMaxForce: 1000
   maxMisses: 3
+  isBroken: 0
   controllerInput: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
   actionName: Green
 --- !u!233 &7160216653306061787
@@ -2951,6 +2953,7 @@ MonoBehaviour:
   pulledDampingRatio: 0.7
   pulledMaxForce: 1000
   maxMisses: 3
+  isBroken: 0
   controllerInput: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
   actionName: Yellow
 --- !u!120 &4219087428838017851
@@ -3414,6 +3417,7 @@ MonoBehaviour:
   pulledDampingRatio: 0.7
   pulledMaxForce: 1000
   maxMisses: 3
+  isBroken: 0
   controllerInput: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
   actionName: Red
 --- !u!120 &7645510134508615063

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 881e48202f8da2545bc1bec0defec893
+guid: 1ad3b17dd61ef474f938f31b5a14c307
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Flowers Kingdom
+  - Cinzel Decorative
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

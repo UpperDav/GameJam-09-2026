@@ -28,7 +28,6 @@ public class HeadString : MonoBehaviour
 
     void Pulse()
     {
-        Debug.Log("Pulse!");
         rb.AddForce(pulseDirection.normalized * pulseForce, ForceMode2D.Impulse);
         OnPulse?.Invoke();
     }

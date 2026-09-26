@@ -16,7 +16,7 @@ public class LimbString : MonoBehaviour
 
     [Header("Breaking")]
     public int maxMisses = 3;
-    public bool IsBroken { get; private set; }
+    public bool isBroken  = false;
     public bool IsPulled { get; private set; }
 
     public System.Action OnBreak;
@@ -24,6 +24,7 @@ public class LimbString : MonoBehaviour
     private TargetJoint2D targetJoint;
     private Rigidbody2D rb;
     private int misses;
+    private bool hasBeenBroken = false;
 
     [Header("Input")]
     public ControllerInput controllerInput;
@@ -43,7 +44,14 @@ public class LimbString : MonoBehaviour
 
     void Update()
     {
-        if (IsBroken)
+        if (isBroken && !hasBeenBroken)
+        {
+            Break();
+            hasBeenBroken = true;
+            return;
+        }
+
+        if (isBroken)
             return;
 
         if (controllerInput.IsPressed(actionName))
@@ -77,7 +85,6 @@ public class LimbString : MonoBehaviour
 
     void Break()
     {
-        IsBroken = true;
         targetJoint.enabled = false;
         targetJoint.maxForce = 0f;
 
