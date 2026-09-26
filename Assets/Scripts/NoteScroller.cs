@@ -38,7 +38,8 @@ namespace PuppetHero
             elapsedTime = 0f;
 
             string[] lines = trackFile!.text.Split('\n');
-            step = float.Parse(lines[0]);
+            int beat = int.Parse(lines[0]);
+            step = 60f / beat;
 
             foreach (string line in lines.Skip(1))
             {
