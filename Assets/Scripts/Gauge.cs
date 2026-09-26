@@ -1,6 +1,7 @@
+using Unity.AppUI.UI;
 using UnityEngine;
 using UnityEngine.Rendering;
-
+using UnityEngine.UI;
 namespace PuppetHero
 {
 
@@ -14,6 +15,7 @@ namespace PuppetHero
        
         private int maxValue = InitValue;
         private int cumlativeValue = 0;
+        public Slider gaugeSlider;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -24,11 +26,12 @@ namespace PuppetHero
         // Update is called once per frame
         void Update()
         {
-
+            
         }
 
         public void Decrease(int v)
         {
+            gaugeSlider.value = value;
             int prevValue = value;
             value = Mathf.Max(0, value - v);
             cumlativeValue = 0;
@@ -61,6 +64,7 @@ namespace PuppetHero
 
         public void Increase(int v)
         {
+            gaugeSlider.value = value;
             int prevValue = value;
             value = Mathf.Min(maxValue, value + v);
             cumlativeValue ++;
