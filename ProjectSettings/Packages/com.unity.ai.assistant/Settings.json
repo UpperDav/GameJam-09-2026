@@ -7,5 +7,5 @@
     "PlanExecutionPromptDismissed": false,
     "CheckpointDiscoveryBannerDismissed": false,
     "CheckpointDiscoveryUserDisabled": false,
-    "CheckpointDiscoveryFlowStarted": false
+    "CheckpointDiscoveryFlowStarted": true
 }
