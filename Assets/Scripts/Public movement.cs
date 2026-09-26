@@ -49,8 +49,10 @@ public class Publicmovement : MonoBehaviour
             {
                 transform.Translate(positionInitiale);
                 publicPresent = true;
+
                 publicGone = false;
                 Debug.Log("Public is back");
+
             }
 
         }

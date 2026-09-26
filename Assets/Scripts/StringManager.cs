@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,33 +8,91 @@ public class StringManager : MonoBehaviour
     [Header("Limb strings")]
     public List<LimbString> limbStrings = new List<LimbString>();
 
-    // Fires with the number of limb strings still intact
-    public System.Action<int> OnPhaseChanged;
+    [Header("Head")]
+    public SpriteRenderer headSpriteRenderer;
+    public Sprite deadHeadSprite;
+    public Rigidbody2D bodyRigidbody;
 
-    // Fires once, when all 4 limb strings have broken
-    public System.Action OnHanged;
+    [Header("Death Flail")]
+    public float flailDuration = 3.5f;
+    public float flailForceMin = 5f;
+    public float flailForceMax = 30f;
+    public float flailForceInterval = 0.1f;
+
+    [Header("Input")]
+    public ControllerInput controllerInput;
+
+    public System.Action OnAllStringBroken;
 
     private int brokenCount;
+    private bool allStringsBroken;
 
     void OnEnable()
     {
+        brokenCount = 0;
+        allStringsBroken = false;
+
+        if (controllerInput != null)
+            controllerInput.IsEnabled = true;
+
         foreach (var s in limbStrings)
-            s.OnBreak += HandleLimbBreak;
+        {
+            if (s != null)
+                s.OnBreak += HandleLimbBreak;
+        }
     }
 
     void OnDisable()
     {
         foreach (var s in limbStrings)
-            s.OnBreak -= HandleLimbBreak;
+        {
+            if (s != null)
+                s.OnBreak -= HandleLimbBreak;
+        }
     }
 
     void HandleLimbBreak()
     {
         brokenCount++;
-        int remaining = limbStrings.Count - brokenCount; // 3, 2, 1, 0
-        OnPhaseChanged?.Invoke(remaining);
+        int remaining = limbStrings.Count - brokenCount;
 
-        if (brokenCount >= limbStrings.Count)
-            OnHanged?.Invoke();
+        if (remaining <= 0 && !allStringsBroken)
+        {
+            allStringsBroken = true;
+            if (controllerInput != null)
+                controllerInput.IsEnabled = false;
+
+            OnAllStringBroken?.Invoke();
+
+            if (bodyRigidbody != null)
+            {
+                StartCoroutine(FlailCoroutine());
+            }
+        }
+    }
+
+    IEnumerator FlailCoroutine()
+    {
+        float elapsed = 0f;
+        float nextForceTime = 0f;
+
+        while (elapsed < flailDuration)
+        {
+            if (Time.time >= nextForceTime)
+            {
+                Vector2 randomDir = Random.insideUnitCircle.normalized;
+                float randomForce = Random.Range(flailForceMin, flailForceMax);
+                bodyRigidbody.AddForce(randomDir * randomForce, ForceMode2D.Impulse);
+
+                nextForceTime = Time.time + flailForceInterval;
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        if (controllerInput != null)
+            controllerInput.IsEnabled = false;
+        headSpriteRenderer.sprite = deadHeadSprite;
+
     }
 }

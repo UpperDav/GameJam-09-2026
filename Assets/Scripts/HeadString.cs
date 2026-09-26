@@ -22,6 +22,9 @@ public class HeadString : MonoBehaviour
 
     void Update()
     {
+        if (controllerInput == null || !controllerInput.IsEnabled)
+            return;
+
         if (controllerInput.IsPressed("Head"))
             Pulse();
     }

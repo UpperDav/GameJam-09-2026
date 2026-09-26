@@ -38,7 +38,6 @@ namespace PuppetHero
             elapsedTime = 0f;
 
             string[] lines = trackFile.text.Split('\n');
-            Debug.Log($"Number of lines = {lines.Length} | Step = {lines[0]}");
             step = float.Parse(lines[0]);
 
             foreach (string line in lines.Skip(1))

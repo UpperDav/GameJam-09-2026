@@ -131,14 +131,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Puppet
       objectReference: {fileID: 0}
-    - target: {fileID: 1465804809297431319, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.052
-      objectReference: {fileID: 0}
-    - target: {fileID: 4670914773718070470, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.052
-      objectReference: {fileID: 0}
     - target: {fileID: 9121387999693698606, guid: 51b17148b66bae3458b0406440d28c4f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.83

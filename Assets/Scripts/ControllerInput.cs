@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -31,6 +32,8 @@ public class ControllerInput : ScriptableObject
     public float leftTrigger => gamepad?.leftTrigger.value ?? 0f;
     public float rightTrigger => gamepad?.rightTrigger.value ?? 0f;
 
+    public bool IsEnabled { get; set; } = true;
+
     private void OnEnable()
     {
         InitializeInputDevices();
@@ -41,6 +44,8 @@ public class ControllerInput : ScriptableObject
         keyboard = Keyboard.current;
         gamepad = Gamepad.current;
         mouse = Mouse.current;
+
+        // TODO: Read config file for input settings, maybe?
     }
 
     private void EnsureInitialized()
