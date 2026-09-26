@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7031bfc35a734ec4e92f94b9aa2ad222
+guid: f676c5ac42301624aa1d483179534423
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1549651706229648429
-    second: Public 1_0
+      213: -3213197688980373854
+    second: Boutton bleu_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Public 1_0
+      name: Boutton bleu_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1035
-        height: 197
+        x: 53
+        y: 53
+        width: 406
+        height: 406
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3d39a9ccbf78e7ae0800000000000000
-      internalID: -1549651706229648429
+      spriteID: 2aef733e9bd6863d0800000000000000
+      internalID: -3213197688980373854
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Public 1_0: -1549651706229648429
+      Boutton bleu_0: -3213197688980373854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
