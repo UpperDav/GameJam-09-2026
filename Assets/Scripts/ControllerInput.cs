@@ -19,25 +19,17 @@ public class ControllerInput : ScriptableObject
 
     static private ControllerInput? instance;
 
-    private Keyboard keyboard;
-    private Gamepad gamepad;
-    private Mouse mouse;
+    private Keyboard? keyboard;
+    private Gamepad? gamepad;
+    private Mouse? mouse;
 
     [SerializeField] private List<Input> inputs = new();
 
-    static public ControllerInput Instance()
-    {
-        if (instance == null)
-            instance = new();
+    public Vector2 leftStick => gamepad?.leftStick.value ?? new Vector2(0, 0);
+    public Vector2 rightStick => gamepad?.rightStick.value ?? new Vector2(0, 0);
 
-        return instance;
-    }
-
-    public Vector2 leftStick => gamepad.leftStick.value;
-    public Vector2 rightStick => gamepad.rightStick.value;
-
-    public float leftTrigger => gamepad.leftTrigger.value;
-    public float rightTrigger => gamepad.rightTrigger.value;
+    public float leftTrigger => gamepad?.leftTrigger.value ?? 0f;
+    public float rightTrigger => gamepad?.rightTrigger.value ?? 0f;
 
     private void Awake()
     {
@@ -45,7 +37,7 @@ public class ControllerInput : ScriptableObject
         gamepad = Gamepad.current;
         mouse = Mouse.current;
 
-        // TODO: Read config file for input settings
+        // TODO: Read config file for input settings, maybe?
     }
 
     public bool GetInput(string name)
@@ -54,10 +46,10 @@ public class ControllerInput : ScriptableObject
         if (input == null)
             return false;
 
-        return keyboard[input.key].isPressed || gamepad[input.gamepad].isPressed;
+        return (keyboard?[input.key].isPressed ?? false) || (gamepad?[input.gamepad].isPressed ?? false);
     }
 
-    private ButtonControl this[int b] => b switch
+    private ButtonControl this[int b] => mouse == null ? new ButtonControl() : b switch
     {
         0 => mouse.leftButton,
         1 => mouse.rightButton,
@@ -73,9 +65,9 @@ public class ControllerInput : ScriptableObject
         return input.isPressed;
     }
 
-    public Vector2 mousePos => mouse.position.value;
+    public Vector2 mousePos => mouse?.position.value ?? new Vector2(0, 0);
 
-    public float mouseScroll => mouse.scroll.value.y;
+    public float mouseScroll => mouse?.scroll.value.y ?? 0f;
 
     public bool this[string name] => GetInput(name);
 }

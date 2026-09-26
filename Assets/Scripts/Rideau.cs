@@ -7,7 +7,7 @@ namespace PuppetHero
     public class Rideau : MonoBehaviour
     {
 
-        [SerializeField] private GameObject left, right, floor;
+        [SerializeField] private GameObject? left, right, floor;
 
         private void UpdateFrame()
         {

@@ -13,16 +13,15 @@ namespace PuppetHero
 
         private bool canBeHit;
 
-        [SerializeField] private ControllerInput controller;
+        [SerializeField] private ControllerInput? controller;
         [SerializeField] private string controlName = "";
         [SerializeField] private int value = 0;
 
-        internal String parent;
+        internal String? parent;
 
         private void Awake()
         {
-            if (gauge == null)
-                gauge = GameObject.Find("Gauge").GetComponent<Gauge>();
+            getGauge();
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,10 +35,10 @@ namespace PuppetHero
         {
             GetComponent<Transform>().position += speed * Time.deltaTime * dir;
 
-            if (canBeHit && controller[controlName])
+            if (canBeHit && controller![controlName])
             {
-                gauge.Increase(value);
-                parent.KillNote(gameObject);
+                (gauge ?? getGauge()).Increase(value);
+                parent!.KillNote(gameObject);
             }
         }
 
@@ -50,8 +49,16 @@ namespace PuppetHero
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            gauge.Decrease(value);
-            parent.KillNote(gameObject);
+            (gauge ?? getGauge()).Decrease(value);
+            parent!.KillNote(gameObject);
+        }
+
+        static private Gauge getGauge()
+        {
+            if (gauge == null)
+                gauge = GameObject.Find("Gauge").GetComponent<Gauge>();
+
+            return gauge;
         }
     }
 }
