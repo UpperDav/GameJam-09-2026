@@ -32,6 +32,7 @@ public class StringManager : MonoBehaviour
     public AudioClip ropeSwinging;
     public AudioClip neckBreak;
     public AudioClip ropeBreak;
+    public AudioClip choking;
 
     private void Awake()
     {
@@ -79,6 +80,7 @@ public class StringManager : MonoBehaviour
             if (bodyRigidbody != null)
             {
                 audioSource.PlayOneShot(ropeSwinging);
+                audioSource.PlayOneShot(choking);
                 StartCoroutine(FlailCoroutine());
             }
         }
