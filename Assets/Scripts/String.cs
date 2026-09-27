@@ -99,6 +99,7 @@ namespace PuppetHero
 
         public void KillNote(GameObject note)
         {
+            note.GetComponent<Note>().setToDie = true;
             notes.Remove(note);
             Destroy(note);
         }
