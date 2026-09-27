@@ -200,7 +200,7 @@ namespace PuppetHero
             ClearAllNotes();
         }
 
-        private void ClearAllNotes()
+        public void ClearAllNotes()
         {
             // Iterate a copy since KillNote modifies the notes list while we loop.
             List<GameObject> notesToClear = new(notes);

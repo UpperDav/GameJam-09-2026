@@ -122,7 +122,7 @@ public class StringManager : MonoBehaviour
         LimbString chosen = availableStrings[randomIndex];
         chosen.Break();
 
-        PuppetHero.String.CutByColor(chosen.trackColor);
+        //PuppetHero.String.CutByColor(chosen.trackColor);
 
         return true;
     }

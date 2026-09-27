@@ -83,6 +83,13 @@ namespace PuppetHero
         private void StopSpawning()
         {
             enabled = false;
+
+            foreach (GameObject s in strings)
+            {
+                String str = s.GetComponent<String>();
+                if (str != null)
+                    str.ClearAllNotes();
+            }
         }
 
         public void PlayMissSound()
