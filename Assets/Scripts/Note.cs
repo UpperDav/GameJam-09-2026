@@ -6,7 +6,6 @@ namespace PuppetHero
 
     public class Note : MonoBehaviour
     {
-
         static internal float speed = 0f;
         static private Vector3 dir = Vector3.down;
         static private Gauge? gauge;

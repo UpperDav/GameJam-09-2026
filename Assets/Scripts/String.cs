@@ -32,6 +32,9 @@ namespace PuppetHero
         [SerializeField] private ControllerInput? controllerInput;
         [SerializeField] private string actionName = "";
 
+        [Header("Click visual feedback")]
+        [SerializeField] private ClickPulse? clickPulse;
+
         private int activeNoteCount = 0;
 
         static private NoteScroller? noteScroller;
@@ -78,9 +81,12 @@ namespace PuppetHero
             if (isCut || controllerInput == null)
                 return;
 
-            if (controllerInput.IsPressed(actionName) && activeNoteCount <= 0)
+            if (controllerInput.IsPressed(actionName))
             {
-                (noteScroller ?? getNoteScroller())?.PlayEmptyClickSound();
+                clickPulse?.Pulse();
+
+                if (activeNoteCount <= 0)
+                    (noteScroller ?? getNoteScroller())?.PlayEmptyClickSound();
             }
         }
 
@@ -188,7 +194,8 @@ namespace PuppetHero
         {
             isCut = true;
 
-            GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
+            transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f);
+            GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f);
 
             ClearAllNotes();
         }

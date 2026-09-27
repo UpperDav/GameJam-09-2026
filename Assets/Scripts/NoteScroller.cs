@@ -88,13 +88,13 @@ namespace PuppetHero
         public void PlayMissSound()
         {
             if (audioSource != null && missClip != null)
-                audioSource.PlayOneShot(missClip);
+                audioSource.PlayOneShot(missClip, 0.3f);
         }
 
         public void PlayEmptyClickSound()
         {
             if (audioSource != null && emptyClip != null)
-                audioSource.PlayOneShot(emptyClip, 0.3f);
+                audioSource.PlayOneShot(emptyClip, 0.1f);
         }
 
         // Update is called once per frame
