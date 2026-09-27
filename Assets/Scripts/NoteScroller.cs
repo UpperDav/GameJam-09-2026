@@ -13,8 +13,8 @@ namespace PuppetHero
         [SerializeField] private TextAsset? trackFile;
         [SerializeField] private float noteSpeed = 4f;
         [SerializeField] private StringManager? stringManager;
-        [SerializeField] private AudioSource audioSource;
-        [SerializeField] private AudioSource musicManager;
+        [SerializeField] private AudioSource? audioSource;
+        [SerializeField] private AudioSource? musicManager;
 
         [Header("Hit feedback SFX")]
         [SerializeField] private AudioClip? missClip;
@@ -89,7 +89,7 @@ namespace PuppetHero
         private void StopSpawning()
         {
             enabled = false;
-            musicManager.Stop();
+            musicManager?.Stop();
 
             foreach (GameObject s in strings)
             {
@@ -122,7 +122,7 @@ namespace PuppetHero
             int index = GetIndex();
             if (index != lastIndex && enabled)
             {
-                if (!musicManager.isPlaying) 
+                if (musicManager != null && !musicManager.isPlaying) 
                     musicManager.Play();
                 List<String.StringColor> colors = track[index];
                 foreach (String.StringColor color in track[index])
