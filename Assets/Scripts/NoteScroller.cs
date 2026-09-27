@@ -14,7 +14,6 @@ namespace PuppetHero
         [SerializeField] private StringManager? stringManager;
 
         [SerializeField] private AudioSource audioSource;
-        [SerializeField] private AudioSource introSource;
         [SerializeField] private AudioSource musicSource;
 
         [Header("Hit feedback SFX")]
@@ -22,7 +21,6 @@ namespace PuppetHero
         [SerializeField] private AudioClip? emptyClip;
 
         [Header("Music")]
-        [SerializeField] private AudioClip? introClip;
         [SerializeField] private AudioClip? musicClip;
 
         private float elapsedTime;
@@ -32,7 +30,6 @@ namespace PuppetHero
         private int lastIndex = -1;
 
         private int currentTrackIndex = 0;
-        private bool musicStarted = false;
 
         private void Start()
         {
@@ -85,7 +82,11 @@ namespace PuppetHero
 
             if (trackFile == null)
             {
-                Debug.LogError($"NoteScroller: Track file at index {currentTrackIndex} is null!", this);
+                Debug.LogError(
+                    $"NoteScroller: Track file at index {currentTrackIndex} is null!",
+                    this
+                );
+
                 track.Clear();
                 return;
             }
@@ -98,7 +99,11 @@ namespace PuppetHero
 
             if (lines.Length == 0)
             {
-                Debug.LogError($"NoteScroller: Track file '{trackFile.name}' is empty!", this);
+                Debug.LogError(
+                    $"NoteScroller: Track file '{trackFile.name}' is empty!",
+                    this
+                );
+
                 return;
             }
 
@@ -108,6 +113,7 @@ namespace PuppetHero
                     $"NoteScroller: Could not read BPM from first line of '{trackFile.name}'.",
                     this
                 );
+
                 return;
             }
 
@@ -153,9 +159,6 @@ namespace PuppetHero
 
             if (musicSource != null)
                 musicSource.Stop();
-
-            if (introSource != null)
-                introSource.Stop();
 
             foreach (GameObject s in strings)
             {
@@ -276,25 +279,7 @@ namespace PuppetHero
 
             musicSource.clip = musicClip;
             musicSource.loop = true;
-
-            // Play the intro first, then start the looping music.
-            if (introClip != null)
-            {
-                double startTime = AudioSettings.dspTime + 0.1;
-                double musicStartTime = startTime + introClip.length;
-
-                introSource.clip = introClip;
-                introSource.loop = false;
-                introSource.PlayScheduled(startTime);
-
-                musicSource.PlayScheduled(musicStartTime);
-            }
-            else
-            {
-                musicSource.Play();
-            }
-
-            musicStarted = true;
+            musicSource.Play();
         }
     }
 }
