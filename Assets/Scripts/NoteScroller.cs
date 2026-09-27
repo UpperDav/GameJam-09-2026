@@ -58,13 +58,20 @@ namespace PuppetHero
                 return;
             }
 
+            if (musicSource == null)
+            {
+                Debug.LogError("NoteScroller: Music AudioSource not assigned!", this);
+                return;
+            }
+
             LoadTrack(currentTrackIndex);
 
             Note.speed = noteSpeed;
 
             stringManager.RegisterOnAllStringBroken(StopSpawning);
 
-            //PlayMusic();
+            // Start the music from the beginning.
+            PlayMusic();
         }
 
         private void OnDestroy()
@@ -262,14 +269,19 @@ namespace PuppetHero
 
             int nextIndex = currentTrackIndex + 1;
 
-            // Loop back to the first track file.
+            // All track files have finished.
             if (nextIndex >= trackFiles.Count)
+            {
                 nextIndex = 0;
+
+                // Restart the music from the beginning.
+                PlayMusic();
+            }
 
             LoadTrack(nextIndex);
         }
 
-        internal void PlayMusic()
+        public void PlayMusic()
         {
             if (musicClip == null)
             {
@@ -277,8 +289,15 @@ namespace PuppetHero
                 return;
             }
 
+            if (musicSource == null)
+            {
+                Debug.LogError("NoteScroller: Missing music AudioSource!", this);
+                return;
+            }
+
+            musicSource.Stop();
             musicSource.clip = musicClip;
-            musicSource.loop = true;
+            musicSource.loop = false;
             musicSource.Play();
         }
     }
