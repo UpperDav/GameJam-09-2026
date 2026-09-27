@@ -21,6 +21,7 @@ namespace PuppetHero
         {
             if (audioSource == null)
                 audioSource = GetComponent<AudioSource>();
+            audioSource.volume = 0.1f;
         }
 
         void Start()
@@ -60,16 +61,12 @@ namespace PuppetHero
 
                     publicGone = false;
 
-                    StartCheers();
-
                 }
 
             }
             else
             {
                 publicGone = true;
-
-                StopCheers();
 
                 if (transform.position.y >= -8f)
                 {
@@ -87,14 +84,14 @@ namespace PuppetHero
             }
         }
 
-        private void StartCheers()
+        public void StartCheers()
         {
-            audioSource!.Play();
+            audioSource!.volume = 1f;
         }
 
-        private void StopCheers()
+        public void StopCheers()
         {
-            audioSource!.Stop();
+            audioSource!.volume = 0.1f;
         }
     }
 }

@@ -110,7 +110,6 @@ MonoBehaviour:
   direction: {x: 0, y: 1}
   positionInitiale: {x: 0, y: -3.8}
   audioSource: {fileID: -5922340615318057700}
-  cheersClip: {fileID: 8300000, guid: 5637858f580b94c49927920f3de3a0c6, type: 3}
 --- !u!82 &-5922340615318057700
 AudioSource:
   m_ObjectHideFlags: 0
@@ -123,8 +122,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 5637858f580b94c49927920f3de3a0c6, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_PlayOnAwake: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 1
   Mute: 0
