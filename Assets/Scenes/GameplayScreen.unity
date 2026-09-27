@@ -734,14 +734,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EndGameCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 329247769893832792, guid: 1b6c12bfa650d844b8f7725312eb9233, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 354244033615990878, guid: 1b6c12bfa650d844b8f7725312eb9233, type: 3}
-      propertyPath: m_BlockingObjects
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5036224737265790545, guid: 1b6c12bfa650d844b8f7725312eb9233, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -773,18 +765,6 @@ PrefabInstance:
     - target: {fileID: 5036224737265790545, guid: 1b6c12bfa650d844b8f7725312eb9233, type: 3}
       propertyPath: m_SizeDelta.y
       value: 1080.7722
-      objectReference: {fileID: 0}
-    - target: {fileID: 5036224737265790545, guid: 1b6c12bfa650d844b8f7725312eb9233, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4857638
-      objectReference: {fileID: 0}
-    - target: {fileID: 5036224737265790545, guid: 1b6c12bfa650d844b8f7725312eb9233, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.4857638
-      objectReference: {fileID: 0}
-    - target: {fileID: 5036224737265790545, guid: 1b6c12bfa650d844b8f7725312eb9233, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.4857638
       objectReference: {fileID: 0}
     - target: {fileID: 5036224737265790545, guid: 1b6c12bfa650d844b8f7725312eb9233, type: 3}
       propertyPath: m_LocalPosition.x
