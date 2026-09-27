@@ -39,7 +39,6 @@ namespace PuppetHero
 
             if (canBeHit && controller!.IsPressed(controlName))
             {
-                Debug.Log($"Calling Gauge.Increase() from instance #{GetHashCode()}");
                 (gauge ?? getGauge()).Increase(value);
                 parent!.KillNote(gameObject);
             }
@@ -55,7 +54,6 @@ namespace PuppetHero
             if (setToDie)
                 return;
 
-            Debug.Log($"Calling Gauge.Decrease() from instance #{GetHashCode()}");
             (gauge ?? getGauge()).Decrease(value);
             parent!.KillNote(gameObject);
         }
