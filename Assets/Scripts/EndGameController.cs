@@ -23,6 +23,10 @@ public class EndGameController : MonoBehaviour
         replayButton.onClick.AddListener(Replay);
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
         endGamePanel.SetActive(false);
+
+        var stringManager = FindFirstObjectByType<StringManager>();
+        if (stringManager != null)
+            stringManager.OnHanged += ShowDefeat;
     }
 
     public void ShowVictory()

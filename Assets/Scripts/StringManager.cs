@@ -7,6 +7,7 @@ public class StringManager : MonoBehaviour
 {
     [Header("Limb strings")]
     public List<LimbString> limbStrings = new List<LimbString>();
+    private List<LimbString> remainingStrings = new List<LimbString>();
 
     [Header("Head")]
     public SpriteRenderer headSpriteRenderer;
@@ -26,6 +27,7 @@ public class StringManager : MonoBehaviour
     public CameraShake cameraShake;
 
     public System.Action OnAllStringBroken;
+    public System.Action OnHanged;
 
     private int brokenCount;
     private bool allStringsBroken;
@@ -119,5 +121,6 @@ public class StringManager : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(neckBreak);
         headSpriteRenderer.sprite = deadHeadSprite;
+        OnHanged?.Invoke();
     }
 }

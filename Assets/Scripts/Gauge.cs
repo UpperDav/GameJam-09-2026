@@ -81,7 +81,11 @@ namespace PuppetHero
 
         private void CutAString()
         {
+            // Selecting the random string to cut
 
+            // Cutting the string from the character
+
+            // Cuttin the string for the gameplay
         }
     }
 }

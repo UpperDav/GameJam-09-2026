@@ -76,11 +76,6 @@ public class LimbString : MonoBehaviour
         IsPulled = false;
     }
 
-    public void RegisterHit()
-    {
-       
-    }
-
     void Break()
     {
         targetJoint.enabled = false;
