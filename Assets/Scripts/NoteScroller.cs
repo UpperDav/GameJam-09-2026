@@ -12,7 +12,7 @@ namespace PuppetHero
         [SerializeField] private float delay = 1f;
         [SerializeField] private TextAsset? trackFile;
         [SerializeField] private float noteSpeed = 4f;
-        [SerializeField] private StringManager stringManager;
+        [SerializeField] private StringManager? stringManager;
 
         private float elapsedTime;
 
@@ -65,15 +65,14 @@ namespace PuppetHero
 
             if (stringManager != null)
             {
-                stringManager.OnHanged += StopSpawning;
-                Debug.Log("NoteScroller: Subscribed to OnHanged event.");
+                stringManager.OnAllStringBroken += StopSpawning;
             }
         }
 
         private void OnDestroy()
         {
-            if (stringManager != null)
-                stringManager.OnHanged -= StopSpawning;
+            //if (stringManager != null)
+                //stringManager.OnHanged -= StopSpawning;
         }
 
         private void StopSpawning()
@@ -90,7 +89,7 @@ namespace PuppetHero
             elapsedTime += Time.deltaTime;
 
             int index = GetIndex();
-            if (index != lastIndex)
+            if (index != lastIndex && enabled)
             {
                 List<String.StringColor> colors = track[index];
                 foreach (String.StringColor color in track[index])

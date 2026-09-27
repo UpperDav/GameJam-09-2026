@@ -57,6 +57,7 @@ namespace PuppetHero
         void Start()
         {
             isCut = false;
+            FindFirstObjectByType<StringManager>().OnAllStringBroken += ClearAllNotes;
         }
 
         // Update is called once per frame
