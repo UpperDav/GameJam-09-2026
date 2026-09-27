@@ -141,7 +141,8 @@ namespace PuppetHero
             }
             else if (lastIndex == track.Count - 1)
             {
-                // TODO: Handle end of track
+                elapsedTime = delay;
+                lastIndex = -1;
             }
         }
 
