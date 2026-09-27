@@ -86,7 +86,7 @@ namespace PuppetHero
 
         public void StartCheers()
         {
-            audioSource!.volume = 1f;
+            audioSource!.volume = 0.7f;
         }
 
         public void StopCheers()
