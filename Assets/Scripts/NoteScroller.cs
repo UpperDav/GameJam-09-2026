@@ -83,6 +83,13 @@ namespace PuppetHero
         private void StopSpawning()
         {
             enabled = false;
+
+            foreach (GameObject s in strings)
+            {
+                String str = s.GetComponent<String>();
+                if (str != null)
+                    str.ClearAllNotes();
+            }
         }
 
         public void PlayMissSound()
@@ -141,7 +148,8 @@ namespace PuppetHero
             }
             else if (lastIndex == track.Count - 1)
             {
-                // TODO: Handle end of track
+                elapsedTime = delay;
+                lastIndex = -1;
             }
         }
 
