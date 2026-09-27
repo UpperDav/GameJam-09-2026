@@ -11,15 +11,21 @@ public static class PuppetHeroInstructionsBuilder
     [MenuItem("Tools/Puppet Hero/Generate Instructions Panel")]
     public static void Generate()
     {
-        GameObject panel = FindInScene("InstructionsPanel");
+        GameObject? panel = FindInScene("InstructionsPanel");
         if (panel == null || panel.GetComponent<RectTransform>() == null)
         {
             EditorUtility.DisplayDialog("Puppet Hero", "Create a UI Panel named InstructionsPanel under Canvas first.", "OK");
             return;
         }
 
-        TMP_FontAsset titleFont = FindInScene("Title")?.GetComponent<TMP_Text>()?.font;
-        TMP_FontAsset bodyFont = FindInScene("Subtitle")?.GetComponent<TMP_Text>()?.font;
+        TMP_FontAsset? titleFont = FindInScene("Title")?.GetComponent<TMP_Text>().font;
+        if (titleFont == null)
+        {
+            Debug.LogError("Cannot find Title GameObject in scene");
+            return;
+        }
+
+        TMP_FontAsset? bodyFont = FindInScene("Subtitle")?.GetComponent<TMP_Text>().font;
         if (bodyFont == null) bodyFont = titleFont;
 
         Undo.RecordObject(panel, "Prepare instructions panel");
@@ -104,7 +110,7 @@ public static class PuppetHeroInstructionsBuilder
         Debug.Log("Puppet Hero: Instructions panel generated. BackButton On Click is not wired yet.");
     }
 
-    static GameObject FindInScene(string objectName)
+    static GameObject? FindInScene(string objectName)
     {
         foreach (GameObject root in SceneManager.GetActiveScene().GetRootGameObjects())
         {
@@ -152,7 +158,8 @@ public static class PuppetHeroInstructionsBuilder
         text.color = color;
         text.fontStyle = style;
         text.alignment = TextAlignmentOptions.Center;
-        text.enableWordWrapping = false;
+        text.textWrappingMode = TextWrappingModes.NoWrap;
+        //text.enableWordWrapping = false;
         text.overflowMode = TextOverflowModes.Overflow;
         text.raycastTarget = false;
         return text;

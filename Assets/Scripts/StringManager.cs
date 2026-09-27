@@ -3,44 +3,45 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class StringManager : MonoBehaviour
 {
     [Header("Limb strings")]
-    public List<LimbString> limbStrings = new List<LimbString>();
-    private List<LimbString> remainingStrings = new List<LimbString>();
+    public List<LimbString> limbStrings = new();
+    private List<LimbString> remainingStrings = new();
 
     [Header("Head")]
-    public SpriteRenderer headSpriteRenderer;
-    public Sprite deadHeadSprite;
-    public Rigidbody2D bodyRigidbody;
+    [SerializeField] private SpriteRenderer? headSpriteRenderer;
+    [SerializeField] private Sprite? deadHeadSprite;
+    [SerializeField] private Rigidbody2D? bodyRigidbody;
 
     [Header("Death Flail")]
-    public float flailDuration = 3.5f;
-    public float flailForceMin = 5f;
-    public float flailForceMax = 30f;
-    public float flailForceInterval = 0.1f;
+    [SerializeField] private float flailDuration = 3.5f;
+    [SerializeField] private float flailForceMin = 5f;
+    [SerializeField] private float flailForceMax = 30f;
+    [SerializeField] private float flailForceInterval = 0.1f;
 
     [Header("Input")]
-    public ControllerInput controllerInput;
+    [SerializeField] private ControllerInput? controllerInput;
 
     [Header("Camera")]
-    public CameraShake cameraShake;
+    [SerializeField] private CameraShake? cameraShake;
 
-    public System.Action OnAllStringBroken;
-    public System.Action OnHanged;
+    private System.Action? onAllStringBroken;
+    private System.Action? onHanged;
 
     private int brokenCount;
     private bool allStringsBroken;
 
     // Audio
 
-    private AudioSource audioSource;
+    private AudioSource? audioSource;
 
     // Audio Clips
-    public AudioClip ropeSwinging;
-    public AudioClip neckBreak;
-    public AudioClip ropeBreak;
-    public AudioClip choking;
+    [SerializeField] private AudioClip? ropeSwinging;
+    [SerializeField] private AudioClip? neckBreak;
+    [SerializeField] private AudioClip? ropeBreak;
+    [SerializeField] private AudioClip? choking;
 
     private void Awake()
     {
@@ -58,7 +59,7 @@ public class StringManager : MonoBehaviour
         foreach (var s in limbStrings)
         {
             if (s != null)
-                s.OnBreak += HandleLimbBreak;
+                s.RegisterOnBreak(HandleLimbBreak);
         }
     }
 
@@ -67,8 +68,40 @@ public class StringManager : MonoBehaviour
         foreach (var s in limbStrings)
         {
             if (s != null)
-                s.OnBreak -= HandleLimbBreak;
+                s.RemoveOnBreak(HandleLimbBreak);
         }
+    }
+
+    public void RegisterOnHanged(System.Action callback)
+    {
+        if (onHanged == null)
+            onHanged = new(callback);
+        else
+            onHanged += callback;
+    }
+
+    public void RemoveOnHanged(System.Action callback)
+    {
+        if (onHanged == null)
+            return;
+
+        onHanged -= callback;
+    }
+
+    public void RegisterOnAllStringBroken(System.Action callback)
+    {
+        if (onAllStringBroken == null)
+            onAllStringBroken = new(callback);
+        else
+            onAllStringBroken += callback;
+    }
+
+    public void RemoveOnAllStringBroken(System.Action callback)
+    {
+        if (onAllStringBroken == null)
+            return;
+
+        onAllStringBroken -= callback;
     }
 
     void HandleLimbBreak()
@@ -77,8 +110,7 @@ public class StringManager : MonoBehaviour
         if (audioSource != null && ropeBreak != null)
             audioSource.PlayOneShot(ropeBreak);
 
-        if (cameraShake != null)
-            cameraShake.ShakeDefault();
+        cameraShake?.ShakeDefault();
 
         brokenCount++;
         int remaining = limbStrings.Count - brokenCount;
@@ -89,7 +121,7 @@ public class StringManager : MonoBehaviour
             if (controllerInput != null)
                 controllerInput.IsEnabled = false;
 
-            OnAllStringBroken?.Invoke();
+            onAllStringBroken?.Invoke();
 
             if (bodyRigidbody != null)
             {
@@ -134,7 +166,7 @@ public class StringManager : MonoBehaviour
             {
                 Vector2 randomDir = Random.insideUnitCircle.normalized;
                 float randomForce = Random.Range(flailForceMin, flailForceMax);
-                bodyRigidbody.AddForce(randomDir * randomForce, ForceMode2D.Impulse);
+                bodyRigidbody?.AddForce(randomDir * randomForce, ForceMode2D.Impulse);
 
                 nextForceTime = Time.time + flailForceInterval;
             }
@@ -161,6 +193,6 @@ public class StringManager : MonoBehaviour
             headSpriteRenderer.sprite = deadHeadSprite;
 
         Debug.Log("StringManager: Invoking OnHanged event - game over!");
-        OnHanged?.Invoke();
+        onHanged?.Invoke();
     }
 }

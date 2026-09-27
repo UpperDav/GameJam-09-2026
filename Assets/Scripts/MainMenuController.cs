@@ -5,21 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    [SerializeField] private string gameSceneName = "Game";
-
-    private GameObject title;
-    private GameObject subtitle;
-    private GameObject menuButtons;
-    private GameObject instructionsPanel;
+    private GameObject? title;
+    private GameObject? subtitle;
+    private GameObject? menuButtons;
+    private GameObject? instructionsPanel;
 
     void Awake()
     {
-        Transform canvas = transform;
-
-        title = canvas.Find("Title").gameObject;
-        subtitle = canvas.Find("Subtitle").gameObject;
-        menuButtons = canvas.Find("MenuButtons").gameObject;
-        instructionsPanel = canvas.Find("InstructionsPanel").gameObject;
+        title = transform.Find("Title").gameObject;
+        subtitle = transform.Find("Subtitle").gameObject;
+        menuButtons = transform.Find("MenuButtons").gameObject;
+        instructionsPanel = transform.Find("InstructionsPanel").gameObject;
 
         // Connexion automatique des boutons
         Connect("PlayButton", PlayGame);
@@ -37,6 +33,9 @@ public class MainMenuController : MonoBehaviour
 
     void Connect(string buttonName, UnityEngine.Events.UnityAction action)
     {
+        if (menuButtons == null)
+            return;
+
         Button button = menuButtons.transform
             .Find(buttonName).GetComponent<Button>();
 
@@ -46,18 +45,18 @@ public class MainMenuController : MonoBehaviour
 
     public void ShowInstructions()
     {
-        title.SetActive(false);
-        subtitle.SetActive(false);
-        menuButtons.SetActive(false);
-        instructionsPanel.SetActive(true);
+        title?.SetActive(false);
+        subtitle?.SetActive(false);
+        menuButtons?.SetActive(false);
+        instructionsPanel?.SetActive(true);
     }
 
     public void HideInstructions()
     {
-        instructionsPanel.SetActive(false);
-        title.SetActive(true);
-        subtitle.SetActive(true);
-        menuButtons.SetActive(true);
+        instructionsPanel?.SetActive(false);
+        title?.SetActive(true);
+        subtitle?.SetActive(true);
+        menuButtons?.SetActive(true);
     }
 
     public void PlayGame()

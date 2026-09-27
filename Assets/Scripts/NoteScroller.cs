@@ -65,7 +65,7 @@ namespace PuppetHero
 
             if (stringManager != null)
             {
-                stringManager.OnAllStringBroken += StopSpawning;
+                stringManager.RegisterOnAllStringBroken(StopSpawning);
             }
         }
 
@@ -95,7 +95,7 @@ namespace PuppetHero
                 foreach (String.StringColor color in track[index])
                 {
                     // Try to use the string at the color's index first
-                    String s = null;
+                    String? s = null;
                     if ((int)color < strings.Count)
                     {
                         String preferredString = strings[(int)color].GetComponent<String>();
