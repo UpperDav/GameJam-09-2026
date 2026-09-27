@@ -64,7 +64,7 @@ namespace PuppetHero
 
             stringManager.RegisterOnAllStringBroken(StopSpawning);
 
-            PlayMusic();
+            //PlayMusic();
         }
 
         private void OnDestroy()
@@ -269,7 +269,7 @@ namespace PuppetHero
             LoadTrack(nextIndex);
         }
 
-        private void PlayMusic()
+        internal void PlayMusic()
         {
             if (musicClip == null)
             {

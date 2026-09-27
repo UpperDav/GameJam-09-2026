@@ -19,10 +19,12 @@ namespace PuppetHero
         [SerializeField] private string mainMenuSceneName = "MainMenu";
 
         public static EndGameController? Instance { get; private set; }
+        private AudioSource? defeatMusic;
 
         private void Awake()
         {
             Instance = this;
+            defeatMusic = GetComponent<AudioSource>();
 
             if (replayButton != null)
                 replayButton.onClick.AddListener(Replay);
@@ -52,6 +54,9 @@ namespace PuppetHero
         public void ShowDefeat()
         {
             Show("AU BOUT DU FIL", "Les quatre fils ont cédé. Le rideau tombe.");
+
+            if (defeatMusic != null && !defeatMusic.isPlaying)
+                defeatMusic.Play();
         }
 
         private void Show(string title, string description)
