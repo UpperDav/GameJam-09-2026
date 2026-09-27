@@ -13,11 +13,11 @@ namespace PuppetHero
         [SerializeField] private TextAsset? trackFile;
         [SerializeField] private float noteSpeed = 4f;
         [SerializeField] private StringManager? stringManager;
-        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioSource? audioSource;
 
         [Header("Hit feedback SFX")]
-        [SerializeField] private AudioClip missClip;
-        [SerializeField] private AudioClip emptyClip;
+        [SerializeField] private AudioClip? missClip;
+        [SerializeField] private AudioClip? emptyClip;
 
         private float elapsedTime;
 

@@ -3,69 +3,73 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MainMenuController : MonoBehaviour
+namespace PuppetHero
 {
-    private GameObject? title;
-    private GameObject? subtitle;
-    private GameObject? menuButtons;
-    private GameObject? instructionsPanel;
 
-    void Awake()
+    public class MainMenuController : MonoBehaviour
     {
-        title = transform.Find("Title").gameObject;
-        subtitle = transform.Find("Subtitle").gameObject;
-        menuButtons = transform.Find("MenuButtons").gameObject;
-        instructionsPanel = transform.Find("InstructionsPanel").gameObject;
+        private GameObject? title;
+        private GameObject? subtitle;
+        private GameObject? menuButtons;
+        private GameObject? instructionsPanel;
 
-        // Connexion automatique des boutons
-        Connect("PlayButton", PlayGame);
-        Connect("InstructionsButton", ShowInstructions);
-        Connect("QuitButton", QuitGame);
+        void Awake()
+        {
+            title = transform.Find("Title").gameObject;
+            subtitle = transform.Find("Subtitle").gameObject;
+            menuButtons = transform.Find("MenuButtons").gameObject;
+            instructionsPanel = transform.Find("InstructionsPanel").gameObject;
 
-        Transform back = instructionsPanel.transform
-            .Find("reno/BackButton");
+            // Connexion automatique des boutons
+            Connect("PlayButton", PlayGame);
+            Connect("InstructionsButton", ShowInstructions);
+            Connect("QuitButton", QuitGame);
 
-        back.GetComponent<Button>().onClick.RemoveAllListeners();
-        back.GetComponent<Button>().onClick.AddListener(HideInstructions);
+            Transform back = instructionsPanel.transform
+                .Find("reno/BackButton");
 
-        HideInstructions();
-    }
+            back.GetComponent<Button>().onClick.RemoveAllListeners();
+            back.GetComponent<Button>().onClick.AddListener(HideInstructions);
 
-    void Connect(string buttonName, UnityEngine.Events.UnityAction action)
-    {
-        if (menuButtons == null)
-            return;
+            HideInstructions();
+        }
 
-        Button button = menuButtons.transform
-            .Find(buttonName).GetComponent<Button>();
+        void Connect(string buttonName, UnityEngine.Events.UnityAction action)
+        {
+            if (menuButtons == null)
+                return;
 
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(action);
-    }
+            Button button = menuButtons.transform
+                .Find(buttonName).GetComponent<Button>();
 
-    public void ShowInstructions()
-    {
-        title?.SetActive(false);
-        subtitle?.SetActive(false);
-        menuButtons?.SetActive(false);
-        instructionsPanel?.SetActive(true);
-    }
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(action);
+        }
 
-    public void HideInstructions()
-    {
-        instructionsPanel?.SetActive(false);
-        title?.SetActive(true);
-        subtitle?.SetActive(true);
-        menuButtons?.SetActive(true);
-    }
+        public void ShowInstructions()
+        {
+            title?.SetActive(false);
+            subtitle?.SetActive(false);
+            menuButtons?.SetActive(false);
+            instructionsPanel?.SetActive(true);
+        }
 
-    public void PlayGame()
-    {
-        SceneManager.LoadScene(1);
-    }
+        public void HideInstructions()
+        {
+            instructionsPanel?.SetActive(false);
+            title?.SetActive(true);
+            subtitle?.SetActive(true);
+            menuButtons?.SetActive(true);
+        }
 
-    public void QuitGame()
-    {
-        Application.Quit();
+        public void PlayGame()
+        {
+            SceneManager.LoadScene(1);
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }

@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+
 namespace PuppetHero
 {
 
@@ -79,7 +80,6 @@ namespace PuppetHero
             value = Mathf.Min(maxValue, value + v);
             gaugeSlider!.value = InitValue - value;
             cumlativeValue++;
-            Debug.Log("Cumulative Value: " + cumlativeValue);
 
             if (cumlativeValue >= 10)
                 PublicHappy = true;
