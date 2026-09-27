@@ -62,7 +62,12 @@ namespace PuppetHero
             {
                 List<String.StringColor> colors = new();
                 foreach (char c in line)
+                {
+                    if (char.IsWhiteSpace(c))
+                        continue;
+
                     colors.Add(GetColor(c));
+                }
                 track.Add(colors);
             }
 
