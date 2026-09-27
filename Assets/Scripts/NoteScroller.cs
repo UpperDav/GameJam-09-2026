@@ -13,6 +13,11 @@ namespace PuppetHero
         [SerializeField] private TextAsset? trackFile;
         [SerializeField] private float noteSpeed = 4f;
         [SerializeField] private StringManager? stringManager;
+        [SerializeField] private AudioSource audioSource;
+
+        [Header("Hit feedback SFX")]
+        [SerializeField] private AudioClip missClip;
+        [SerializeField] private AudioClip emptyClip;
 
         private float elapsedTime;
 
@@ -72,12 +77,24 @@ namespace PuppetHero
         private void OnDestroy()
         {
             //if (stringManager != null)
-                //stringManager.OnHanged -= StopSpawning;
+            //stringManager.OnHanged -= StopSpawning;
         }
 
         private void StopSpawning()
         {
             enabled = false;
+        }
+
+        public void PlayMissSound()
+        {
+            if (audioSource != null && missClip != null)
+                audioSource.PlayOneShot(missClip, 0.3f);
+        }
+
+        public void PlayEmptyClickSound()
+        {
+            if (audioSource != null && emptyClip != null)
+                audioSource.PlayOneShot(emptyClip, 0.1f);
         }
 
         // Update is called once per frame
@@ -117,7 +134,7 @@ namespace PuppetHero
                         s = availableStrings[UnityEngine.Random.Range(0, availableStrings.Count)];
                     }
 
-                    s.CreateNote(color);
+                    s.CreateNote();
                 }
 
                 lastIndex = index;

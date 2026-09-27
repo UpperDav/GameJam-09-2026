@@ -19,6 +19,12 @@ public class LimbString : MonoBehaviour
     public bool isBroken { get; private set; } = false;
     public bool IsPulled { get; private set; }
 
+    [Header("Note Track")]
+    // Which note track (color) this limb corresponds to -- must match
+    // the StringColor set on the matching PuppetHero.String / NoteScroller
+    // entry, e.g. Left arm (a) = Blue, Right arm (s) = Green, etc.
+    public PuppetHero.String.StringColor trackColor;
+
     public Action? onBreak;
 
     private TargetJoint2D? targetJoint;
