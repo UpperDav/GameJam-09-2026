@@ -14,6 +14,15 @@ namespace PuppetHero
 
         private bool publicGone = true;
 
+        [SerializeField] private AudioSource? audioSource;
+
+
+        void Awake()
+        {
+            if (audioSource == null)
+                audioSource = GetComponent<AudioSource>();
+        }
+
         void Start()
         {
 
@@ -51,12 +60,16 @@ namespace PuppetHero
 
                     publicGone = false;
 
+                    StartCheers();
+
                 }
 
             }
-            if (gauge?.PublicHappy == false)
+            else
             {
                 publicGone = true;
+
+                StopCheers();
 
                 if (transform.position.y >= -8f)
                 {
@@ -72,6 +85,16 @@ namespace PuppetHero
                 }
 
             }
+        }
+
+        private void StartCheers()
+        {
+            audioSource!.Play();
+        }
+
+        private void StopCheers()
+        {
+            audioSource!.Stop();
         }
     }
 }
