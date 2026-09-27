@@ -159,7 +159,6 @@ public static class PuppetHeroInstructionsBuilder
         text.fontStyle = style;
         text.alignment = TextAlignmentOptions.Center;
         text.textWrappingMode = TextWrappingModes.NoWrap;
-        //text.enableWordWrapping = false;
         text.overflowMode = TextOverflowModes.Overflow;
         text.raycastTarget = false;
         return text;
