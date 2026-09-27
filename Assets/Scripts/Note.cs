@@ -25,13 +25,17 @@ namespace PuppetHero
 
         internal bool setToDie = false;
 
+        static bool firstTimeTriggered = true;
+        
+
         private void Awake()
         {
+            
             getGauge();
             getNoteScroller();
             getCameraShake();
         }
-
+       
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -55,6 +59,12 @@ namespace PuppetHero
         {
             canBeHit = true;
             parent!.NoteEnteredZone();
+
+            if (firstTimeTriggered)
+            {
+                (noteScroller ?? getNoteScroller())?.PlayMusic();
+                firstTimeTriggered = false;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
