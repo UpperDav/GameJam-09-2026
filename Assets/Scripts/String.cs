@@ -98,7 +98,7 @@ namespace PuppetHero
             Destroy(note);
         }
 
-        static void CutRandom()
+        static public void CutRandom()
         {
             String inst = instances[Random.Range(0, instances.Count)];
             while (inst.isCut)

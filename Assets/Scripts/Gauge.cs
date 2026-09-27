@@ -72,21 +72,16 @@ namespace PuppetHero
             value = Mathf.Min(maxValue, value + v);
             gaugeSlider.value = InitValue - value;
             cumlativeValue++;
-        }
-        public void GoodPerformance()
-        {
+
             if (cumlativeValue >= 10)
-            {
                 PublicHappy = true;
-            } // Verifie si le public va pouvoir s'afficher au bout de 10 touches reussit
-
-
         }
 
         private void CutAString()
         {
             if (stringManager != null)
                 stringManager.BreakRandomString();
+            String.CutRandom();
         }
     }
 }
