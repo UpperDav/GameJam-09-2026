@@ -45,6 +45,11 @@ namespace PuppetHero
             if (yNote == null)
                 yNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/YellowNote.prefab", typeof(GameObject)) as GameObject;
 
+            if (instances.Exists(inst => inst != null && inst.color == color))
+                Debug.LogWarning($"String: another instance already uses color {color} " +
+                    $"({gameObject.name} is a duplicate) -- CutByColor will not be able to " +
+                    "tell them apart.");
+
             instances.Add(this);
         }
 
@@ -57,7 +62,6 @@ namespace PuppetHero
         void Start()
         {
             isCut = false;
-            FindFirstObjectByType<StringManager>().OnAllStringBroken += ClearAllNotes;
         }
 
         // Update is called once per frame
@@ -114,6 +118,35 @@ namespace PuppetHero
                 return;
 
             availableStrings[Random.Range(0, availableStrings.Count)].Cut();
+        }
+
+        static public void CutByColor(StringColor color)
+        {
+            List<String> matches = instances.FindAll(
+                inst => inst != null && inst.color == color);
+
+            if (matches.Count == 0)
+            {
+                Debug.LogWarning($"String.CutByColor: no String instance found with color {color}. " +
+                    "Check that a note-track GameObject actually has this color assigned.");
+                return;
+            }
+
+            if (matches.Count > 1)
+            {
+                Debug.LogWarning($"String.CutByColor: {matches.Count} String instances share color {color}. " +
+                    "Each color should be unique across your 5 note tracks -- fix the duplicate in the scene.");
+            }
+
+            String uncut = matches.Find(inst => !inst.isCut);
+            if (uncut == null)
+            {
+                Debug.LogWarning($"String.CutByColor: the {color} track is already cut -- nothing to do. " +
+                    "If this fires more than once per limb, two LimbStrings likely share the same trackColor.");
+                return;
+            }
+
+            uncut.Cut();
         }
 
         public void Cut()

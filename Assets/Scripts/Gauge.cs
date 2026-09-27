@@ -36,7 +36,7 @@ namespace PuppetHero
         // Update is called once per frame
         void Update()
         {
-            
+
         }
 
         public void Decrease(int v)
@@ -87,7 +87,6 @@ namespace PuppetHero
         {
             if (stringManager != null)
                 stringManager.BreakRandomString();
-            String.CutRandom();
         }
     }
 }

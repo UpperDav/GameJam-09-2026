@@ -119,7 +119,11 @@ public class StringManager : MonoBehaviour
             return false;
 
         int randomIndex = Random.Range(0, availableStrings.Count);
-        availableStrings[randomIndex].Break();
+        LimbString chosen = availableStrings[randomIndex];
+        chosen.Break();
+
+        PuppetHero.String.CutByColor(chosen.trackColor);
+
         return true;
     }
 
