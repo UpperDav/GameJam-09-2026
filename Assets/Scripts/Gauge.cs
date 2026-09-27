@@ -13,11 +13,11 @@ namespace PuppetHero
         public bool PublicHappy = false;
 
         [SerializeField] private int value;
-
         [SerializeField] private int maxValue;
+
         private int cumlativeValue = 0;
-        public Slider gaugeSlider;
-        public StringManager stringManager;
+        [SerializeField] private Slider gaugeSlider;
+        [SerializeField] private StringManager stringManager;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -25,7 +25,7 @@ namespace PuppetHero
             value = InitValue;
             maxValue = InitValue;
             gaugeSlider.maxValue = InitValue;
-            gaugeSlider.value = value;
+            gaugeSlider.value = 0;
         }
 
         // Update is called once per frame
@@ -38,7 +38,7 @@ namespace PuppetHero
         {
             int prevValue = value;
             value = Mathf.Max(0, value - v);
-            gaugeSlider.value = value;
+            gaugeSlider.value = InitValue - value;
             cumlativeValue = 0;
             PublicHappy = false;
 
@@ -71,7 +71,7 @@ namespace PuppetHero
         public void Increase(int v)
         {
             value = Mathf.Min(maxValue, value + v);
-            gaugeSlider.value = value;
+            gaugeSlider.value = InitValue - value;
             cumlativeValue++;
 
             if (cumlativeValue >= 10)
