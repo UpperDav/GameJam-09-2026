@@ -4,10 +4,10 @@ using UnityEngine.AdaptivePerformance;
 [RequireComponent(typeof(LineRenderer))]
 public class HeadStringVisual : MonoBehaviour
 {
-    public HeadString headString;
-    public Transform holder;
+    [SerializeField] private HeadString? headString;
+    [SerializeField] private Transform? holder;
 
-    private LineRenderer line;
+    private LineRenderer? line;
     private float flashTimer;
 
     private void Awake()
@@ -23,7 +23,7 @@ public class HeadStringVisual : MonoBehaviour
         if (holder == null)
             return;
 
-        line.SetPosition(0, holder.position);
-        line.SetPosition(1, transform.position);
+        line!.SetPosition(0, holder.position);
+        line!.SetPosition(1, transform.position);
     }
 }

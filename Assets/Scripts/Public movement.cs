@@ -51,7 +51,6 @@ public class Publicmovement : MonoBehaviour
                 publicPresent = true;
 
                 publicGone = false;
-                Debug.Log("Public is back");
 
             }
 
@@ -72,8 +71,6 @@ public class Publicmovement : MonoBehaviour
                 transform.Translate(direction * speed * Time.deltaTime);
 
             }
-
-            Debug.Log("Public is gone");
 
             }
         }

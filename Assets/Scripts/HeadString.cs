@@ -1,19 +1,16 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class HeadString : MonoBehaviour
 {
     [Header("Input")]
-    public ControllerInput controllerInput;
+    [SerializeField] private ControllerInput? controllerInput;
 
     [Header("Pulse")]
-    public float pulseForce = 6f;
-    public Vector2 pulseDirection = Vector2.up;
+    [SerializeField] private float pulseForce = 6f;
+    [SerializeField] private Vector2 pulseDirection = Vector2.up;
 
-    public System.Action OnPulse;
-
-    private Rigidbody2D rb;
+    private Rigidbody2D? rb;
 
     void Awake()
     {
@@ -31,8 +28,7 @@ public class HeadString : MonoBehaviour
 
     void Pulse()
     {
-        rb.AddForce(pulseDirection.normalized * pulseForce, ForceMode2D.Impulse);
-        OnPulse?.Invoke();
+        rb?.AddForce(pulseDirection.normalized * pulseForce, ForceMode2D.Impulse);
     }
 
     public void RegisterHit() { }

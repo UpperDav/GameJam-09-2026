@@ -96,7 +96,8 @@ public static class EndGameBuilder
         txt.fontSize = fontSize;
         txt.color = color;
         txt.alignment = TextAlignmentOptions.Center;
-        txt.enableWordWrapping = false;
+        txt.textWrappingMode = TextWrappingModes.NoWrap;
+        //txt.enableWordWrapping = false;
         txt.raycastTarget = false;
         return txt;
     }

@@ -8,7 +8,7 @@ public class CameraShake : MonoBehaviour
     public float magniteude = 0.2f;
 
     private Vector3 originalLocalPos;
-    private Coroutine activateShake;
+    private Coroutine? activateShake;
 
     private void Awake()
     {

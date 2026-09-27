@@ -4,15 +4,15 @@ using UnityEngine;
 public class StringVisual : MonoBehaviour
 {
     [Header("Refs")]
-    public LimbString limbString;
-    public Transform holder;
+    [SerializeField] private LimbString? limbString;
+    [SerializeField] private Transform? holder;
 
     [Header("Look")]
-    public int segments = 12;
-    public float slackAmplitude = 0.15f;
-    public float wiggleSpeed = 1f;
+    [SerializeField] private int segments = 12;
+    [SerializeField] private float slackAmplitude = 0.15f;
+    [SerializeField] private float wiggleSpeed = 1f;
 
-    private LineRenderer line;
+    private LineRenderer? line;
 
     void Awake()
     {
@@ -28,7 +28,7 @@ public class StringVisual : MonoBehaviour
     {
         if (limbString != null)
         {
-            limbString.OnBreak += HandleBreak;
+            limbString.RegisterOnBreak(HandleBreak);
 
             if (limbString.isBroken)
                 HandleBreak();
@@ -38,24 +38,24 @@ public class StringVisual : MonoBehaviour
     void OnDisable()
     {
         if (limbString != null)
-            limbString.OnBreak -= HandleBreak;
+            limbString.RemoveOnBreak(HandleBreak);
     }
 
     void LateUpdate()
     {
-        if (holder == null || !line.enabled)
+        if (holder == null || !line!.enabled)
             return;
 
         Vector3 start = holder.position;
         Vector3 end = transform.position;
 
-        bool taut = limbString != null && limbString.IsPulled;
+        bool taut = limbString?.IsPulled ?? false;
         float slack = taut ? 0f : slackAmplitude;
 
         Vector3 dir = (end - start).normalized;
         Vector3 perpendicular = new Vector3(-dir.y, dir.x, 0f);
 
-        int count = line.positionCount;
+        int count = line!.positionCount;
         for (int i = 0; i < count; i++)
         {
             float t = i / (float)(count - 1);
@@ -68,12 +68,12 @@ public class StringVisual : MonoBehaviour
                 point += perpendicular * wiggle;
             }
 
-            line.SetPosition(i, point);
+            line!.SetPosition(i, point);
         }
     }
 
     void HandleBreak()
     {
-        line.enabled = false;
+        line!.enabled = false;
     }
 }

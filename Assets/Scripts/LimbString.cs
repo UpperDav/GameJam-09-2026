@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,15 +8,15 @@ using UnityEngine.InputSystem;
 public class LimbString : MonoBehaviour
 {
     [Header("String target")]
-    public Transform stringAnchor;
+    [SerializeField] private Transform? stringAnchor;
 
     [Header("Pull feel")]
-    public float pulledFrequency = 8f;
-    public float pulledDampingRatio = 0.7f;
-    public float pulledMaxForce = 1000f;
+    [SerializeField] private float pulledFrequency = 8f;
+    [SerializeField] private float pulledDampingRatio = 0.7f;
+    [SerializeField] private float pulledMaxForce = 1000f;
 
     [Header("Breaking")]
-    public bool isBroken = false;
+    public bool isBroken { get; private set; } = false;
     public bool IsPulled { get; private set; }
 
     [Header("Note Track")]
@@ -24,14 +25,14 @@ public class LimbString : MonoBehaviour
     // entry, e.g. Left arm (a) = Blue, Right arm (s) = Green, etc.
     public PuppetHero.String.StringColor trackColor;
 
-    public System.Action OnBreak;
+    public Action? onBreak;
 
-    private TargetJoint2D targetJoint;
+    private TargetJoint2D? targetJoint;
     private bool hasBeenBroken = false;
 
     [Header("Input")]
-    public ControllerInput controllerInput;
-    public string actionName = "Blue";
+    [SerializeField] private ControllerInput? controllerInput;
+    [SerializeField] private string actionName = "Blue";
 
     void Awake()
     {
@@ -65,20 +66,36 @@ public class LimbString : MonoBehaviour
         if (controllerInput.IsReleased(actionName))
             Release();
 
-        if (targetJoint.enabled && stringAnchor != null)
+        if (targetJoint!.enabled && stringAnchor != null)
             targetJoint.target = stringAnchor.position;
     }
 
     void Pull()
     {
-        targetJoint.enabled = true;
+        targetJoint!.enabled = true;
         IsPulled = true;
     }
 
     void Release()
     {
-        targetJoint.enabled = false;
+        targetJoint!.enabled = false;
         IsPulled = false;
+    }
+
+    public void RegisterOnBreak(Action callback)
+    {
+        if (onBreak == null)
+            onBreak = new(callback);
+        else
+            onBreak += callback;
+    }
+
+    public void RemoveOnBreak(Action callback)
+    {
+        if (onBreak == null)
+            return;
+
+        onBreak -= callback;
     }
 
     public void Break()
@@ -88,9 +105,9 @@ public class LimbString : MonoBehaviour
 
         isBroken = true;
         hasBeenBroken = true;
-        targetJoint.enabled = false;
-        targetJoint.maxForce = 0f;
+        targetJoint!.enabled = false;
+        targetJoint!.maxForce = 0f;
 
-        OnBreak?.Invoke();
+        onBreak?.Invoke();
     }
 }

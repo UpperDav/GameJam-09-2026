@@ -6,16 +6,16 @@ using TMPro;
 public class EndGameController : MonoBehaviour
 {
     [Header("Generated references")]
-    [SerializeField] private GameObject endGamePanel;
-    [SerializeField] private TMP_Text heading;
-    [SerializeField] private TMP_Text message;
-    [SerializeField] private Button replayButton;
-    [SerializeField] private Button mainMenuButton;
+    [SerializeField] private GameObject? endGamePanel;
+    [SerializeField] private TMP_Text? heading;
+    [SerializeField] private TMP_Text? message;
+    [SerializeField] private Button? replayButton;
+    [SerializeField] private Button? mainMenuButton;
 
     [Header("Scene to return to")]
     [SerializeField] private string mainMenuSceneName = "MainMenu";
 
-    public static EndGameController Instance { get; private set; }
+    public static EndGameController? Instance { get; private set; }
 
     private void Awake()
     {
@@ -38,10 +38,7 @@ public class EndGameController : MonoBehaviour
 
         var stringManager = FindFirstObjectByType<StringManager>();
         if (stringManager != null)
-        {
-            Debug.LogWarning("String manager not null subscribing");
-            stringManager.OnHanged += ShowDefeat;
-        }
+            stringManager.RegisterOnHanged(ShowDefeat);
     }
 
     public void ShowVictory()
@@ -51,17 +48,13 @@ public class EndGameController : MonoBehaviour
 
     public void ShowDefeat()
     {
-        Debug.LogWarning("show defeat");
-        Debug.Log("ShowDefeat called - displaying game over screen.");
         Show("AU BOUT DU FIL", "Les quatre fils ont cédé. Le rideau tombe.");
     }
 
     private void Show(string title, string description)
     {
-        Debug.LogWarning("In the show method");
         if (heading == null || message == null || endGamePanel == null)
         {
-            Debug.LogWarning("EndGameController: Game-over UI references are not assigned.", this);
             return;
         }
 

@@ -10,7 +10,7 @@ namespace PuppetHero
     {
 
         [SerializeField] private int InitValue = 100;
-        public bool PublicHappy = false;
+        public bool PublicHappy { get; private set; } = false;
 
         [SerializeField] private int value;
         [SerializeField] private int maxValue;
@@ -50,11 +50,12 @@ namespace PuppetHero
             if (value == 0)
             {
                 CutAString();
+                
             }
             else if (prevValue > InitValue / 4f && value <= InitValue / 4f)
             {
                 maxValue = (int)(InitValue / 4f);
-
+                
                 CutAString();
 
             }
@@ -78,6 +79,7 @@ namespace PuppetHero
             value = Mathf.Min(maxValue, value + v);
             gaugeSlider!.value = InitValue - value;
             cumlativeValue++;
+            Debug.Log("Cumulative Value: " + cumlativeValue);
 
             if (cumlativeValue >= 10)
                 PublicHappy = true;
