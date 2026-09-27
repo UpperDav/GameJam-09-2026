@@ -91,6 +91,7 @@ namespace PuppetHero
         {
             if (stringManager != null)
                 stringManager.BreakRandomString();
+            String.CutRandom();
         }
     }
 }
