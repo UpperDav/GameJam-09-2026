@@ -36,27 +36,16 @@ namespace PuppetHero
         // Update is called once per frame
         void Update()
         {
-<<<<<<< HEAD
-           
-=======
 
->>>>>>> 7b99afbbb5126e8e3e4c967a0af1a79d7fa664bb
         }
 
         public void Decrease(int v)
         {
             int prevValue = value;
             value = Mathf.Max(0, value - v);
-<<<<<<< HEAD
-            if (gaugeSlider != null)
-                gaugeSlider.value = InitValue - value;
-           
-            
-=======
             gaugeSlider!.value = InitValue - value;
             cumlativeValue = 0;
             PublicHappy = false;
->>>>>>> 7b99afbbb5126e8e3e4c967a0af1a79d7fa664bb
 
             if (value == 0)
             {
