@@ -25,6 +25,7 @@ namespace PuppetHero
             value = InitValue;
             maxValue = InitValue;
             gaugeSlider.maxValue = InitValue;
+            gaugeSlider.value = value;
         }
 
         // Update is called once per frame
@@ -37,7 +38,7 @@ namespace PuppetHero
         {
             int prevValue = value;
             value = Mathf.Max(0, value - v);
-            gaugeSlider.value = InitValue - value;
+            gaugeSlider.value = value;
             cumlativeValue = 0;
             PublicHappy = false;
 
@@ -70,7 +71,7 @@ namespace PuppetHero
         public void Increase(int v)
         {
             value = Mathf.Min(maxValue, value + v);
-            gaugeSlider.value = InitValue - value;
+            gaugeSlider.value = value;
             cumlativeValue++;
 
             if (cumlativeValue >= 10)
