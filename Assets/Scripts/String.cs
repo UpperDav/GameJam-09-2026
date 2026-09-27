@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace PuppetHero
 {
@@ -34,6 +35,9 @@ namespace PuppetHero
 
         [Header("Click visual feedback")]
         [SerializeField] private ClickPulse? clickPulse;
+
+        [Header("Gauge")]
+        [SerializeField] private Gauge? gauge;
 
         private int activeNoteCount = 0;
 
@@ -87,7 +91,11 @@ namespace PuppetHero
                 clickPulse?.Pulse();
 
                 if (activeNoteCount <= 0)
+                {
+                    Debug.Log("Player clicked on empty string track: " + colorName);
+                    gauge.Decrease(gauge.emptyNoteDecrease);
                     (noteScroller ?? getNoteScroller())?.PlayEmptyClickSound();
+                }
             }
         }
 

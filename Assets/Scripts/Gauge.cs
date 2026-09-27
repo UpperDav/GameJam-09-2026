@@ -12,6 +12,7 @@ namespace PuppetHero
 
         [SerializeField] private int value;
         [SerializeField] private int maxValue;
+        [SerializeField] public int emptyNoteDecrease;
 
         private int cumlativeValue = 0;
         [SerializeField] private Slider? gaugeSlider;

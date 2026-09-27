@@ -587,9 +587,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008a63954c904644cbd4c697477a55e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuppetHero.Gauge
-  InitValue: 100
+  InitValue: 80
   value: 0
   maxValue: 0
+  emptyNoteDecrease: 3
   gaugeSlider: {fileID: 780363324}
   stringManager: {fileID: 297389921}
 --- !u!1001 &791508024
@@ -953,7 +954,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: a445b846c900fce45b80dca55e37262b, type: 3}
+  m_Resource: {fileID: 8300000, guid: aee3c3558b1817841a6ffe84da72d657, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1702,6 +1703,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 759179387}
     m_Modifications:
     - target: {fileID: 2227329798479094932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: gauge
+      value: 
+      objectReference: {fileID: 780363325}
+    - target: {fileID: 2227329798479094932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: actionName
       value: Blue
       objectReference: {fileID: 0}
@@ -1758,6 +1763,10 @@ PrefabInstance:
       value: NoteScroller
       objectReference: {fileID: 0}
     - target: {fileID: 3548281601751039932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: gauge
+      value: 
+      objectReference: {fileID: 780363325}
+    - target: {fileID: 3548281601751039932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: actionName
       value: Yellow
       objectReference: {fileID: 0}
@@ -1769,6 +1778,10 @@ PrefabInstance:
       propertyPath: controllerInput
       value: 
       objectReference: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
+    - target: {fileID: 6524728743210848086, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: gauge
+      value: 
+      objectReference: {fileID: 780363325}
     - target: {fileID: 6524728743210848086, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: actionName
       value: Purple
@@ -1782,6 +1795,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
     - target: {fileID: 7549043038549315759, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: gauge
+      value: 
+      objectReference: {fileID: 780363325}
+    - target: {fileID: 7549043038549315759, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: actionName
       value: Red
       objectReference: {fileID: 0}
@@ -1793,6 +1810,10 @@ PrefabInstance:
       propertyPath: controllerInput
       value: 
       objectReference: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
+    - target: {fileID: 8224210545388659037, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: gauge
+      value: 
+      objectReference: {fileID: 780363325}
     - target: {fileID: 8224210545388659037, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: actionName
       value: Green
