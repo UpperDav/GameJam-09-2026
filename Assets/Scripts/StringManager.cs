@@ -160,6 +160,7 @@ public class StringManager : MonoBehaviour
         if (headSpriteRenderer != null)
             headSpriteRenderer.sprite = deadHeadSprite;
 
+        Debug.Log("StringManager: Invoking OnHanged event - game over!");
         OnHanged?.Invoke();
     }
 }

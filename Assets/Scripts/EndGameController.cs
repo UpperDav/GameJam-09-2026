@@ -48,6 +48,7 @@ public class EndGameController : MonoBehaviour
 
     public void ShowDefeat()
     {
+        Debug.Log("ShowDefeat called - displaying game over screen.");
         Show("AU BOUT DU FIL", "Les quatre fils ont cédé. Le rideau tombe.");
     }
 
