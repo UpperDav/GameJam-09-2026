@@ -73,7 +73,7 @@ public class Publicmovement : MonoBehaviour
 
             }
 
-            Debug.Log("Public is gone");
+           
 
             }
         }
