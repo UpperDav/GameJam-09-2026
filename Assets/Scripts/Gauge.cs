@@ -10,7 +10,7 @@ namespace PuppetHero
     {
 
         [SerializeField] private int InitValue = 100;
-        public bool PublicHappy = false;
+        public bool PublicHappy { get; private set; } = false;
 
         [SerializeField] private int value;
         [SerializeField] private int maxValue;
