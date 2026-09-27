@@ -1,113 +1,115 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(TargetJoint2D))]
-public class LimbString : MonoBehaviour
+namespace PuppetHero
 {
-    [Header("String target")]
-    [SerializeField] private Transform? stringAnchor;
 
-    [Header("Pull feel")]
-    [SerializeField] private float pulledFrequency = 8f;
-    [SerializeField] private float pulledDampingRatio = 0.7f;
-    [SerializeField] private float pulledMaxForce = 1000f;
-
-    [Header("Breaking")]
-    public bool isBroken { get; private set; } = false;
-    public bool IsPulled { get; private set; }
-
-    [Header("Note Track")]
-    // Which note track (color) this limb corresponds to -- must match
-    // the StringColor set on the matching PuppetHero.String / NoteScroller
-    // entry, e.g. Left arm (a) = Blue, Right arm (s) = Green, etc.
-    public PuppetHero.String.StringColor trackColor;
-
-    public Action? onBreak;
-
-    private TargetJoint2D? targetJoint;
-    private bool hasBeenBroken = false;
-
-    [Header("Input")]
-    [SerializeField] private ControllerInput? controllerInput;
-    [SerializeField] private string actionName = "Blue";
-
-    void Awake()
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(TargetJoint2D))]
+    public class LimbString : MonoBehaviour
     {
-        targetJoint = GetComponent<TargetJoint2D>();
-        targetJoint.autoConfigureTarget = false;
-        targetJoint.frequency = pulledFrequency;
-        targetJoint.dampingRatio = pulledDampingRatio;
-        targetJoint.maxForce = pulledMaxForce;
-        targetJoint.enabled = false;
-    }
+        [Header("String target")]
+        [SerializeField] private Transform? stringAnchor;
 
-    void Update()
-    {
-        if (isBroken && !hasBeenBroken)
+        [Header("Pull feel")]
+        [SerializeField] private float pulledFrequency = 8f;
+        [SerializeField] private float pulledDampingRatio = 0.7f;
+        [SerializeField] private float pulledMaxForce = 1000f;
+
+        [Header("Breaking")]
+        public bool isBroken { get; private set; } = false;
+        public bool IsPulled { get; private set; }
+
+        [Header("Note Track")]
+        // Which note track (color) this limb corresponds to -- must match
+        // the StringColor set on the matching PuppetHero.String / NoteScroller
+        // entry, e.g. Left arm (a) = Blue, Right arm (s) = Green, etc.
+        public String.StringColor trackColor;
+
+        public Action? onBreak;
+
+        private TargetJoint2D? targetJoint;
+        private bool hasBeenBroken = false;
+
+        [Header("Input")]
+        [SerializeField] private ControllerInput? controllerInput;
+        [SerializeField] private string actionName = "Blue";
+
+        void Awake()
         {
-            Break();
-            return;
+            targetJoint = GetComponent<TargetJoint2D>();
+            targetJoint.autoConfigureTarget = false;
+            targetJoint.frequency = pulledFrequency;
+            targetJoint.dampingRatio = pulledDampingRatio;
+            targetJoint.maxForce = pulledMaxForce;
+            targetJoint.enabled = false;
         }
 
-        if (isBroken)
-            return;
-
-        if (controllerInput == null || !controllerInput.IsEnabled)
-            return;
-
-        if (controllerInput.IsPressed(actionName))
+        void Update()
         {
-            Pull();
+            if (isBroken && !hasBeenBroken)
+            {
+                Break();
+                return;
+            }
+
+            if (isBroken)
+                return;
+
+            if (controllerInput == null || !controllerInput.IsEnabled)
+                return;
+
+            if (controllerInput.IsPressed(actionName))
+            {
+                Pull();
+            }
+
+            if (controllerInput.IsReleased(actionName))
+                Release();
+
+            if (targetJoint!.enabled && stringAnchor != null)
+                targetJoint.target = stringAnchor.position;
         }
 
-        if (controllerInput.IsReleased(actionName))
-            Release();
+        void Pull()
+        {
+            targetJoint!.enabled = true;
+            IsPulled = true;
+        }
 
-        if (targetJoint!.enabled && stringAnchor != null)
-            targetJoint.target = stringAnchor.position;
-    }
+        void Release()
+        {
+            targetJoint!.enabled = false;
+            IsPulled = false;
+        }
 
-    void Pull()
-    {
-        targetJoint!.enabled = true;
-        IsPulled = true;
-    }
+        public void RegisterOnBreak(Action callback)
+        {
+            if (onBreak == null)
+                onBreak = new(callback);
+            else
+                onBreak += callback;
+        }
 
-    void Release()
-    {
-        targetJoint!.enabled = false;
-        IsPulled = false;
-    }
+        public void RemoveOnBreak(Action callback)
+        {
+            if (onBreak == null)
+                return;
 
-    public void RegisterOnBreak(Action callback)
-    {
-        if (onBreak == null)
-            onBreak = new(callback);
-        else
-            onBreak += callback;
-    }
+            onBreak -= callback;
+        }
 
-    public void RemoveOnBreak(Action callback)
-    {
-        if (onBreak == null)
-            return;
+        public void Break()
+        {
+            if (hasBeenBroken)
+                return;
 
-        onBreak -= callback;
-    }
+            isBroken = true;
+            hasBeenBroken = true;
+            targetJoint!.enabled = false;
+            targetJoint!.maxForce = 0f;
 
-    public void Break()
-    {
-        if (hasBeenBroken)
-            return;
-
-        isBroken = true;
-        hasBeenBroken = true;
-        targetJoint!.enabled = false;
-        targetJoint!.maxForce = 0f;
-
-        onBreak?.Invoke();
+            onBreak?.Invoke();
+        }
     }
 }

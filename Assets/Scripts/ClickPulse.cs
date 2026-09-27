@@ -9,10 +9,10 @@ public class ClickPulse : MonoBehaviour
     public float scaleMultiplier = 1.3f;
     public Color flashColor = Color.white;
 
-    private SpriteRenderer sr;
+    private SpriteRenderer? sr;
     private Vector3 originalScale;
     private Color originalColor;
-    private Coroutine activePulse;
+    private Coroutine? activePulse;
 
     void Awake()
     {
@@ -41,14 +41,14 @@ public class ClickPulse : MonoBehaviour
             float wave = Mathf.Sin(t * Mathf.PI);
 
             transform.localScale = Vector3.Lerp(originalScale, originalScale * scaleMultiplier, wave);
-            sr.color = Color.Lerp(originalColor, flashColor, wave);
+            sr!.color = Color.Lerp(originalColor, flashColor, wave);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
         transform.localScale = originalScale;
-        sr.color = originalColor;
+        sr!.color = originalColor;
         activePulse = null;
     }
 }

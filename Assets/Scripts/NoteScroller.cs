@@ -17,8 +17,8 @@ namespace PuppetHero
         [SerializeField] private AudioSource musicManager;
 
         [Header("Hit feedback SFX")]
-        [SerializeField] private AudioClip missClip;
-        [SerializeField] private AudioClip emptyClip;
+        [SerializeField] private AudioClip? missClip;
+        [SerializeField] private AudioClip? emptyClip;
 
         private float elapsedTime;
 
@@ -63,7 +63,12 @@ namespace PuppetHero
             {
                 List<String.StringColor> colors = new();
                 foreach (char c in line)
+                {
+                    if (char.IsWhiteSpace(c))
+                        continue;
+
                     colors.Add(GetColor(c));
+                }
                 track.Add(colors);
             }
 
