@@ -137,7 +137,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.04}
-  m_ConnectedAnchor: {x: 0.087, y: 0.001699999}
+  m_ConnectedAnchor: {x: 0.08700001, y: 0.0016999841}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -573,6 +573,7 @@ MonoBehaviour:
   flailForceMax: 50
   flailForceInterval: 0.1
   controllerInput: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
+  cameraShake: {fileID: 0}
   ropeSwinging: {fileID: 8300000, guid: efdb440dd18efac4f93c299d62a17ea8, type: 3}
   neckBreak: {fileID: 8300000, guid: 17f09890f5780f24f879892bc2bfac8b, type: 3}
   ropeBreak: {fileID: 8300000, guid: 68575791ec7c8774386a09dcc23d1cde, type: 3}
@@ -752,7 +753,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.05}
-  m_ConnectedAnchor: {x: 0.005300015, y: -0.06449999}
+  m_ConnectedAnchor: {x: 0.0052999854, y: -0.06449999}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -1206,7 +1207,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.04}
-  m_ConnectedAnchor: {x: -0.08260001, y: 0.001699999}
+  m_ConnectedAnchor: {x: -0.0826, y: 0.0016999841}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -1389,7 +1390,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.06}
-  m_ConnectedAnchor: {x: 0.030300006, y: -0.23160002}
+  m_ConnectedAnchor: {x: 0.030299991, y: -0.23160002}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -1656,8 +1657,8 @@ MonoBehaviour:
   pulledFrequency: 15
   pulledDampingRatio: 0.7
   pulledMaxForce: 1000
-  maxMisses: 3
   isBroken: 0
+  trackColor: 0
   controllerInput: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
   actionName: Blue
 --- !u!233 &13198818331441658
@@ -1950,7 +1951,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.06}
-  m_ConnectedAnchor: {x: -0.029499993, y: -0.23160002}
+  m_ConnectedAnchor: {x: -0.029500008, y: -0.23160002}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -2221,7 +2222,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.06}
-  m_ConnectedAnchor: {x: 0.005499989, y: -0.07069996}
+  m_ConnectedAnchor: {x: 0.0055000186, y: -0.07069996}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -2541,7 +2542,7 @@ TargetJoint2D:
   m_BreakTorque: Infinity
   m_BreakAction: 3
   m_Anchor: {x: 0, y: 0}
-  m_Target: {x: -0.83, y: -0.002000004}
+  m_Target: {x: 2.46, y: 1.256}
   m_AutoConfigureTarget: 1
   m_MaxForce: 10000
   m_DampingRatio: 0.5
@@ -2721,8 +2722,8 @@ MonoBehaviour:
   pulledFrequency: 15
   pulledDampingRatio: 0.7
   pulledMaxForce: 1000
-  maxMisses: 3
   isBroken: 0
+  trackColor: 1
   controllerInput: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
   actionName: Green
 --- !u!233 &7160216653306061787
@@ -3064,8 +3065,8 @@ MonoBehaviour:
   pulledFrequency: 15
   pulledDampingRatio: 0.7
   pulledMaxForce: 1000
-  maxMisses: 3
   isBroken: 0
+  trackColor: 4
   controllerInput: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
   actionName: Yellow
 --- !u!120 &4219087428838017851
@@ -3273,7 +3274,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.05}
-  m_ConnectedAnchor: {x: -0.005099997, y: -0.06449999}
+  m_ConnectedAnchor: {x: -0.005100012, y: -0.06449999}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -3482,7 +3483,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.0053000003, y: -0.07460004}
+  m_ConnectedAnchor: {x: -0.005300015, y: -0.07460004}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -3528,8 +3529,8 @@ MonoBehaviour:
   pulledFrequency: 15
   pulledDampingRatio: 0.7
   pulledMaxForce: 1000
-  maxMisses: 3
   isBroken: 0
+  trackColor: 3
   controllerInput: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
   actionName: Red
 --- !u!120 &7645510134508615063

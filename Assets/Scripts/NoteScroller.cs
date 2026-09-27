@@ -12,7 +12,12 @@ namespace PuppetHero
         [SerializeField] private float delay = 1f;
         [SerializeField] private TextAsset? trackFile;
         [SerializeField] private float noteSpeed = 4f;
-        [SerializeField] private StringManager stringManager;
+        [SerializeField] private StringManager? stringManager;
+        [SerializeField] private AudioSource audioSource;
+
+        [Header("Hit feedback SFX")]
+        [SerializeField] private AudioClip missClip;
+        [SerializeField] private AudioClip emptyClip;
 
         private float elapsedTime;
 
@@ -38,6 +43,17 @@ namespace PuppetHero
         {
             elapsedTime = 0f;
 
+            // Auto-find StringManager if not assigned in Inspector
+            if (stringManager == null)
+            {
+                stringManager = FindFirstObjectByType<StringManager>();
+                if (stringManager == null)
+                {
+                    Debug.LogError("NoteScroller: StringManager not found!", this);
+                    return;
+                }
+            }
+
             string[] lines = trackFile!.text.Split('\n');
             int beat = int.Parse(lines[0]);
             step = 60f / beat;
@@ -53,18 +69,32 @@ namespace PuppetHero
             Note.speed = noteSpeed;
 
             if (stringManager != null)
-                stringManager.OnHanged += StopSpawning;
+            {
+                stringManager.OnAllStringBroken += StopSpawning;
+            }
         }
 
         private void OnDestroy()
         {
-            if (stringManager != null)
-                stringManager.OnHanged -= StopSpawning;
+            //if (stringManager != null)
+            //stringManager.OnHanged -= StopSpawning;
         }
 
         private void StopSpawning()
         {
             enabled = false;
+        }
+
+        public void PlayMissSound()
+        {
+            if (audioSource != null && missClip != null)
+                audioSource.PlayOneShot(missClip, 0.3f);
+        }
+
+        public void PlayEmptyClickSound()
+        {
+            if (audioSource != null && emptyClip != null)
+                audioSource.PlayOneShot(emptyClip, 0.1f);
         }
 
         // Update is called once per frame
@@ -76,22 +106,35 @@ namespace PuppetHero
             elapsedTime += Time.deltaTime;
 
             int index = GetIndex();
-            if (index != lastIndex)
+            if (index != lastIndex && enabled)
             {
                 List<String.StringColor> colors = track[index];
                 foreach (String.StringColor color in track[index])
                 {
-                    List<String> availableStrings = strings
-                        .FindAll(item => item != null && item.GetComponent<String>() != null &&
-                                         !item.GetComponent<String>().isCut)
-                        .ConvertAll(item => item.GetComponent<String>());
+                    // Try to use the string at the color's index first
+                    String s = null;
+                    if ((int)color < strings.Count)
+                    {
+                        String preferredString = strings[(int)color].GetComponent<String>();
+                        if (preferredString != null && !preferredString.isCut)
+                            s = preferredString;
+                    }
 
-                    if (availableStrings.Count == 0)
-                        return;
+                    // If that string is cut, find any available string
+                    if (s == null)
+                    {
+                        List<String> availableStrings = strings
+                            .FindAll(item => item != null && item.GetComponent<String>() != null &&
+                                             !item.GetComponent<String>().isCut)
+                            .ConvertAll(item => item.GetComponent<String>());
 
-                    String s = availableStrings[UnityEngine.Random.Range(0, availableStrings.Count)];
+                        if (availableStrings.Count == 0)
+                            continue;
 
-                    s.CreateNote(color);
+                        s = availableStrings[UnityEngine.Random.Range(0, availableStrings.Count)];
+                    }
+
+                    s.CreateNote();
                 }
 
                 lastIndex = index;

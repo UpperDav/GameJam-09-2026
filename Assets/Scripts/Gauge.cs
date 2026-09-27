@@ -16,60 +16,68 @@ namespace PuppetHero
         [SerializeField] private int maxValue;
 
         private int cumlativeValue = 0;
-        [SerializeField] private Slider gaugeSlider;
-        [SerializeField] private StringManager stringManager;
+        [SerializeField] private Slider? gaugeSlider;
+        [SerializeField] private StringManager? stringManager;
+
+        private void Awake()
+        {
+            gaugeSlider = GetComponent<Slider>();
+        }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             value = InitValue;
             maxValue = InitValue;
-
-            if (gaugeSlider == null)
-            {
-                Debug.LogError("Gauge: Slider reference is missing.", this);
-                return;
-            }
-
-            gaugeSlider.maxValue = InitValue;
-            gaugeSlider.value = 0;
+            gaugeSlider!.maxValue = InitValue;
+            gaugeSlider!.value = 0;
         }
 
         // Update is called once per frame
         void Update()
         {
+<<<<<<< HEAD
            
+=======
+
+>>>>>>> 7b99afbbb5126e8e3e4c967a0af1a79d7fa664bb
         }
 
         public void Decrease(int v)
         {
             int prevValue = value;
             value = Mathf.Max(0, value - v);
+<<<<<<< HEAD
             if (gaugeSlider != null)
                 gaugeSlider.value = InitValue - value;
            
             
+=======
+            gaugeSlider!.value = InitValue - value;
+            cumlativeValue = 0;
+            PublicHappy = false;
+>>>>>>> 7b99afbbb5126e8e3e4c967a0af1a79d7fa664bb
 
             if (value == 0)
             {
                 CutAString();
                 
             }
-            else if (prevValue >= InitValue / 4f && value < InitValue / 4f)
+            else if (prevValue > InitValue / 4f && value <= InitValue / 4f)
             {
                 maxValue = (int)(InitValue / 4f);
                 
                 CutAString();
 
             }
-            else if (prevValue >= InitValue / 2 && value < InitValue / 2)
+            else if (prevValue > InitValue / 2 && value <= InitValue / 2)
             {
                 maxValue = (int)(InitValue / 2f);
 
                 CutAString();
 
             }
-            else if (prevValue >= 3 * InitValue / 4 && value < 3 * InitValue / 4)
+            else if (prevValue > 3 * InitValue / 4 && value <= 3 * InitValue / 4)
             {
                 maxValue = (int)(3f * InitValue / 4f);
 
@@ -80,8 +88,7 @@ namespace PuppetHero
         public void Increase(int v)
         {
             value = Mathf.Min(maxValue, value + v);
-            if (gaugeSlider != null)
-                gaugeSlider.value = InitValue - value;
+            gaugeSlider!.value = InitValue - value;
             cumlativeValue++;
             Debug.Log("Cumulative Value: " + cumlativeValue);
 
