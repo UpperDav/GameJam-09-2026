@@ -1,13 +1,4 @@
 254
-b
-b
-b
-b
-b
-b
-b
-
-g
 
 
 
@@ -15,14 +6,23 @@ g
 
 
 
-p
+
+
+
+
+
+
+
 
 p
-
+p
 g
-
-bg
-
+p
+g
+g
+b
+b
+g
 b
 b
 g
@@ -40,8 +40,8 @@ r
 g
 b
 g
-
-
+b
+b
 b
 g
 p
@@ -65,14 +65,14 @@ b
 b
 g
 p
-
+r
 g
 g
-
+g
 
 g
 b
-
+r
 
 p
 r
@@ -88,7 +88,7 @@ p
 p
 g
 b
-
+g
 
 b
 g
@@ -135,13 +135,13 @@ y
 y
 b
 b
-
+b
 r
 r
 b
 
 p
-
+p
 r
 g
 g
@@ -150,11 +150,11 @@ p
 p
 
 r
-
+r
 g
-
-
-
+g
+p
+p
 p
 g
 g
@@ -171,40 +171,40 @@ br
 g
 y
 p
-
-b
-y
-p
-y
-g
-y
-p
-g
-r
-b
-
-r
-r
-g
-r
-y
-r
-y
-
-p
-p
-g
-r
-y
-y
-b
-y
-
 p
 b
+y
+p
+y
+g
+y
+p
+g
+r
+b
+
+r
+r
+g
+r
+y
+r
+y
+
+p
+p
+g
+r
+y
+y
+b
+y
+
+p
+b
 
 g
-
+b
 b
 bp
 p
@@ -215,7 +215,7 @@ y
 b
 b
 
-
+p
 r
 b
 y
@@ -228,7 +228,7 @@ g
 b
 b
 
-
+gr
 gr
 g
 b
@@ -247,17 +247,17 @@ g
 b
 p
 r
-
-
-
+g
+r
+g
 r
 r
 r
 b
 
-
+bg
 bg
 bg
 g
-
+r
 r
