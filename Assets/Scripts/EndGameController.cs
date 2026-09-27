@@ -38,7 +38,10 @@ public class EndGameController : MonoBehaviour
 
         var stringManager = FindFirstObjectByType<StringManager>();
         if (stringManager != null)
+        {
+            Debug.LogWarning("String manager not null subscribing");
             stringManager.OnHanged += ShowDefeat;
+        }
     }
 
     public void ShowVictory()
@@ -48,15 +51,17 @@ public class EndGameController : MonoBehaviour
 
     public void ShowDefeat()
     {
+        Debug.LogWarning("show defeat");
         Debug.Log("ShowDefeat called - displaying game over screen.");
         Show("AU BOUT DU FIL", "Les quatre fils ont cédé. Le rideau tombe.");
     }
 
     private void Show(string title, string description)
     {
+        Debug.LogWarning("In the show method");
         if (heading == null || message == null || endGamePanel == null)
         {
-            Debug.LogError("EndGameController: Game-over UI references are not assigned.", this);
+            Debug.LogWarning("EndGameController: Game-over UI references are not assigned.", this);
             return;
         }
 
