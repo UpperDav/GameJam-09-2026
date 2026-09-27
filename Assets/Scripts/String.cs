@@ -120,6 +120,19 @@ namespace PuppetHero
             isCut = true;
 
             GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
+
+            ClearAllNotes();
+        }
+
+        private void ClearAllNotes()
+        {
+            // Iterate a copy since KillNote modifies the notes list while we loop.
+            List<GameObject> notesToClear = new(notes);
+            foreach (GameObject note in notesToClear)
+            {
+                if (note != null)
+                    KillNote(note);
+            }
         }
 
         public void Repair()
