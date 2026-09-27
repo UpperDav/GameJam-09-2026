@@ -75,10 +75,7 @@ namespace PuppetHero
 
         public void Increase(int v)
         {
-            Debug.Log($"Gauge.Increase() called");
-            Debug.Log($"Before update: value = {value}");
             value = Mathf.Min(maxValue, value + v);
-            Debug.Log($"After update: value = {value}");
             gaugeSlider!.value = InitValue - value;
             cumlativeValue++;
 
