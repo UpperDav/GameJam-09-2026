@@ -14,9 +14,8 @@ namespace PuppetHero
         [SerializeField] private float noteSpeed = 4f;
         [SerializeField] private StringManager? stringManager;
 
-        [Header("Audio Sources")]
-        [SerializeField] private AudioSource audioSource;
-        [SerializeField] private AudioSource musicSource;
+        [SerializeField] private AudioSource? audioSource;
+        [SerializeField] private AudioSource? musicSource;
 
         [Header("Hit Feedback SFX")]
         [SerializeField] private AudioClip? missClip;

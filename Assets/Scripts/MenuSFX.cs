@@ -5,10 +5,10 @@ using UnityEngine.EventSystems;
 
 public class MenuSFX : MonoBehaviour
 {
-    public AudioClip hoverSound;
-    public AudioClip clickSound;
+    public AudioClip? hoverSound;
+    public AudioClip? clickSound;
 
-    private AudioSource source;
+    private AudioSource? source;
 
     void Awake()
     {
@@ -56,7 +56,7 @@ public class MenuSFX : MonoBehaviour
 public class MenuHoverSFX : MonoBehaviour,
     IPointerEnterHandler, IPointerDownHandler
 {
-    private MenuSFX manager;
+    private MenuSFX? manager;
 
     public void Setup(MenuSFX audioManager)
     {
@@ -65,16 +65,14 @@ public class MenuHoverSFX : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (manager != null)
-            manager.PlayHover();
+        manager?.PlayHover();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left
-            && manager != null)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            manager.PlayClick();
+            manager?.PlayClick();
         }
     }
 }
