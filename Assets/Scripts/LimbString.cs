@@ -21,9 +21,7 @@ namespace PuppetHero
         public bool IsPulled { get; private set; }
 
         [Header("Note Track")]
-        // Which note track (color) this limb corresponds to -- must match
-        // the StringColor set on the matching PuppetHero.String / NoteScroller
-        // entry, e.g. Left arm (a) = Blue, Right arm (s) = Green, etc.
+
         public String.StringColor trackColor;
 
         public Action? onBreak;

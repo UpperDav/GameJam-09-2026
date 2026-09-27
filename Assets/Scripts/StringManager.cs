@@ -156,7 +156,7 @@ namespace PuppetHero
             LimbString chosen = availableStrings[randomIndex];
             chosen.Break();
 
-            String.CutByColor(chosen.trackColor);
+            //String.CutByColor(chosen.trackColor);
 
             return true;
         }
