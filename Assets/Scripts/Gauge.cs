@@ -17,6 +17,7 @@ namespace PuppetHero
         [SerializeField] private int maxValue;
         private int cumlativeValue = 0;
         public Slider gaugeSlider;
+        public StringManager stringManager;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -84,7 +85,8 @@ namespace PuppetHero
 
         private void CutAString()
         {
-
+            if (stringManager != null)
+                stringManager.BreakRandomString();
         }
     }
 }

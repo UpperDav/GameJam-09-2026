@@ -7,6 +7,7 @@ public class StringManager : MonoBehaviour
 {
     [Header("Limb strings")]
     public List<LimbString> limbStrings = new List<LimbString>();
+    private List<LimbString> remainingStrings = new List<LimbString>();
 
     [Header("Head")]
     public SpriteRenderer headSpriteRenderer;
@@ -26,6 +27,7 @@ public class StringManager : MonoBehaviour
     public CameraShake cameraShake;
 
     public System.Action OnAllStringBroken;
+    public System.Action OnHanged;
 
     private int brokenCount;
     private bool allStringsBroken;
@@ -95,6 +97,19 @@ public class StringManager : MonoBehaviour
         }
     }
 
+    public bool BreakRandomString()
+    {
+        List<LimbString> availableStrings = limbStrings.FindAll(
+            stringItem => stringItem != null && !stringItem.isBroken);
+
+        if (availableStrings.Count == 0)
+            return false;
+
+        int randomIndex = Random.Range(0, availableStrings.Count);
+        availableStrings[randomIndex].Break();
+        return true;
+    }
+
     IEnumerator FlailCoroutine()
     {
         float elapsed = 0f;
@@ -119,5 +134,6 @@ public class StringManager : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(neckBreak);
         headSpriteRenderer.sprite = deadHeadSprite;
+        OnHanged?.Invoke();
     }
 }
