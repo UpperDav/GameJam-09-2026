@@ -722,6 +722,7 @@ MonoBehaviour:
   emptyNoteDecrease: 3
   gaugeSlider: {fileID: 780363324}
   stringManager: {fileID: 297389921}
+  crowd: {fileID: 0}
 --- !u!1001 &791508024
 PrefabInstance:
   m_ObjectHideFlags: 0

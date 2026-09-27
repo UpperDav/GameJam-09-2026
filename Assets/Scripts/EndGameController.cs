@@ -74,7 +74,6 @@ namespace PuppetHero
 
         public void Replay()
         {
-            noteScroller.ResetGame();
             Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

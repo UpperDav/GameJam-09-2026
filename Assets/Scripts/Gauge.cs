@@ -18,9 +18,14 @@ namespace PuppetHero
         [SerializeField] private Slider? gaugeSlider;
         [SerializeField] private StringManager? stringManager;
 
+        [SerializeField] private Publicmovement? crowd;
+
         private void Awake()
         {
             gaugeSlider = GetComponent<Slider>();
+
+            if (crowd == null)
+                crowd = FindFirstObjectByType<Publicmovement>();
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -45,6 +50,7 @@ namespace PuppetHero
             gaugeSlider!.value = InitValue - value;
             cumlativeValue = 0;
             PublicHappy = false;
+            crowd?.StopCheers();
 
             if (value == 0)
             {
@@ -80,7 +86,10 @@ namespace PuppetHero
             cumlativeValue++;
 
             if (cumlativeValue >= 10)
+            {
                 PublicHappy = true;
+                crowd?.StartCheers();
+            }
         }
 
         private void CutAString()
