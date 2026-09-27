@@ -28,6 +28,8 @@ namespace PuppetHero
         [SerializeField] private StringColor color;
         [SerializeField] private Vector3 spawnPoint;
 
+        static private List<String> instances = new();
+
         public bool isCut { get; private set; }
 
         private void Awake()
@@ -42,6 +44,8 @@ namespace PuppetHero
                 rNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/RedNote.prefab", typeof(GameObject)) as GameObject;
             if (yNote == null)
                 yNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/YellowNote.prefab", typeof(GameObject)) as GameObject;
+
+            instances.Add(this);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -92,6 +96,15 @@ namespace PuppetHero
         {
             notes.Remove(note);
             Destroy(note);
+        }
+
+        static void CutRandom()
+        {
+            String inst = instances[Random.Range(0, instances.Count)];
+            while (inst.isCut)
+                inst = instances[Random.Range(0, instances.Count)];
+
+            inst.Cut();
         }
 
         public void Cut()
