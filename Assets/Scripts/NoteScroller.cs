@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,17 +15,21 @@ namespace PuppetHero
         [SerializeField] private float noteSpeed = 4f;
         [SerializeField] private StringManager? stringManager;
         [SerializeField] private AudioSource audioSource;
-        [SerializeField] private AudioSource musicManager;
+        [SerializeField] private AudioSource introSource;
+        [SerializeField] private AudioSource musicSource;
 
         [Header("Hit feedback SFX")]
         [SerializeField] private AudioClip? missClip;
         [SerializeField] private AudioClip? emptyClip;
+        [SerializeField] private AudioClip? introClip;
+        [SerializeField] private AudioClip? musicClip;
 
         private float elapsedTime;
 
         private List<List<String.StringColor>> track = new();
         private float step = 1f;
         private int lastIndex = -1;
+        private bool musicStarted = false;
 
         private String.StringColor GetColor(char c)
         {
@@ -89,7 +94,8 @@ namespace PuppetHero
         private void StopSpawning()
         {
             enabled = false;
-            musicManager.Stop();
+            musicSource.Stop();
+            introSource.Stop();
 
             foreach (GameObject s in strings)
             {
@@ -122,8 +128,13 @@ namespace PuppetHero
             int index = GetIndex();
             if (index != lastIndex && enabled)
             {
-                if (!musicManager.isPlaying) 
-                    musicManager.Play();
+                if (!musicStarted)
+                {
+                    musicStarted = true;
+                    Debug.Log("Starting music");
+                    PlayMusic();
+                }
+
                 List<String.StringColor> colors = track[index];
                 foreach (String.StringColor color in track[index])
                 {
@@ -174,5 +185,30 @@ namespace PuppetHero
 
             return Mathf.Min(ret, track.Count - 1);
         }
+
+        private void PlayMusic()
+        {
+            if (introClip == null || musicClip == null)
+            {
+                Debug.LogError("Missing intro or music clip!");
+                return;
+            }
+
+            double startTime = AudioSettings.dspTime + 0.1;
+            double mainMusicTime = startTime + introClip.length;
+
+            // Intro
+            introSource.clip = introClip;
+            introSource.loop = false;
+            introSource.PlayScheduled(startTime);
+
+            // Main music
+            musicSource.clip = musicClip;
+            musicSource.loop = true;
+            musicSource.PlayScheduled(mainMusicTime);
+
+            musicStarted = true;
+        }
+
     }
 }
