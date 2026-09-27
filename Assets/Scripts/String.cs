@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
 namespace PuppetHero
 {
-
     public class String : MonoBehaviour
     {
         public enum StringColor
@@ -18,11 +16,12 @@ namespace PuppetHero
             yellow
         };
 
-        static private GameObject? bNote;
-        static private GameObject? gNote;
-        static private GameObject? pNote;
-        static private GameObject? rNote;
-        static private GameObject? yNote;
+        [Header("Note Prefabs")]
+        [SerializeField] private GameObject? bNote;
+        [SerializeField] private GameObject? gNote;
+        [SerializeField] private GameObject? pNote;
+        [SerializeField] private GameObject? rNote;
+        [SerializeField] private GameObject? yNote;
 
         private List<GameObject> notes = new();
 
@@ -49,17 +48,6 @@ namespace PuppetHero
 
         private void Awake()
         {
-            if (bNote == null)
-                bNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/BlueNote.prefab", typeof(GameObject)) as GameObject;
-            if (gNote == null)
-                gNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/GreenNote.prefab", typeof(GameObject)) as GameObject;
-            if (pNote == null)
-                pNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/PurpleNote.prefab", typeof(GameObject)) as GameObject;
-            if (rNote == null)
-                rNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/RedNote.prefab", typeof(GameObject)) as GameObject;
-            if (yNote == null)
-                yNote = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/YellowNote.prefab", typeof(GameObject)) as GameObject;
-
             if (instances.Exists(inst => inst != null && inst.color == color))
                 Debug.LogWarning($"String: another instance already uses color {color} " +
                     $"({gameObject.name} is a duplicate) -- CutByColor will not be able to " +
@@ -73,14 +61,12 @@ namespace PuppetHero
             instances.Remove(this);
         }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             isCut = false;
             FindFirstObjectByType<StringManager>().RegisterOnAllStringBroken(ClearAllNotes);
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (isCut || controllerInput == null)
@@ -99,14 +85,11 @@ namespace PuppetHero
             }
         }
 
-        // Called by Note.cs when a note enters this track's hit zone.
         public void NoteEnteredZone()
         {
             activeNoteCount++;
         }
 
-        // Called by Note.cs when a note leaves this track's hit zone,
-        // whether by a successful hit or by missing (exiting uncaught).
         public void NoteLeftZone()
         {
             activeNoteCount = Mathf.Max(0, activeNoteCount - 1);
@@ -133,7 +116,9 @@ namespace PuppetHero
             };
 
             if (note == null)
-                throw new MissingReferenceException($"Note of color {colorName} should not be null");
+                throw new MissingReferenceException(
+                    $"Note of color {colorName} should not be null"
+                );
 
             note.GetComponent<Note>().parent = this;
             note.GetComponent<Transform>().parent = GetComponent<Transform>();
@@ -203,16 +188,19 @@ namespace PuppetHero
         {
             isCut = true;
 
-            transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f);
-            GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f);
+            transform.GetChild(0).GetComponent<SpriteRenderer>().color =
+                new Color(0.2f, 0.2f, 0.2f);
+
+            GetComponent<SpriteRenderer>().color =
+                new Color(0.2f, 0.2f, 0.2f);
 
             ClearAllNotes();
         }
 
         public void ClearAllNotes()
         {
-            // Iterate a copy since KillNote modifies the notes list while we loop.
             List<GameObject> notesToClear = new(notes);
+
             foreach (GameObject note in notesToClear)
             {
                 if (note != null)
@@ -223,7 +211,6 @@ namespace PuppetHero
         public void Repair()
         {
             // TODO: Implement repair animation
-
             isCut = false;
         }
 

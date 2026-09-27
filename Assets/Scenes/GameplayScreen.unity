@@ -1326,9 +1326,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 800, y: 800}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.482
+  m_MatchWidthOrHeight: 0.198
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1344,7 +1344,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1353433450}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1568,6 +1568,7 @@ GameObject:
   - component: {fileID: 1353433449}
   - component: {fileID: 1353433452}
   - component: {fileID: 1353433453}
+  - component: {fileID: 1353433454}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1707,6 +1708,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraShake
   duration: 0.15
   magniteude: 0.2
+--- !u!114 &1353433454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353433448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb0d89fa03a3324fa2ce03671658246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ForceAspectRatio
+  referenceAspect: 1.7777778
+  referenceSize: 5
 --- !u!1 &1578736005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,9 +1847,29 @@ PrefabInstance:
     m_TransformParent: {fileID: 759179387}
     m_Modifications:
     - target: {fileID: 2227329798479094932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: bNote
+      value: 
+      objectReference: {fileID: 1640788236917240985, guid: 3dd01459e96c9474d89adae2ae712d61, type: 3}
+    - target: {fileID: 2227329798479094932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: gNote
+      value: 
+      objectReference: {fileID: 998332438910537969, guid: f44555c58b9ff2d4ab63e86bf1b26c8b, type: 3}
+    - target: {fileID: 2227329798479094932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: gauge
       value: 
       objectReference: {fileID: 780363325}
+    - target: {fileID: 2227329798479094932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: pNote
+      value: 
+      objectReference: {fileID: 1948941768332753437, guid: b15a0bcd33b84d74bae3a4a57df22ff5, type: 3}
+    - target: {fileID: 2227329798479094932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: rNote
+      value: 
+      objectReference: {fileID: 839034255109913547, guid: 5085b2417ee025942aa913245ca9834f, type: 3}
+    - target: {fileID: 2227329798479094932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: yNote
+      value: 
+      objectReference: {fileID: 3304138462999017025, guid: 628cc10a6e91ef842a9f4f5c32c7595f, type: 3}
     - target: {fileID: 2227329798479094932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: actionName
       value: Blue
@@ -1892,9 +1927,29 @@ PrefabInstance:
       value: NoteScroller
       objectReference: {fileID: 0}
     - target: {fileID: 3548281601751039932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: bNote
+      value: 
+      objectReference: {fileID: 1640788236917240985, guid: 3dd01459e96c9474d89adae2ae712d61, type: 3}
+    - target: {fileID: 3548281601751039932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: gNote
+      value: 
+      objectReference: {fileID: 998332438910537969, guid: f44555c58b9ff2d4ab63e86bf1b26c8b, type: 3}
+    - target: {fileID: 3548281601751039932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: gauge
       value: 
       objectReference: {fileID: 780363325}
+    - target: {fileID: 3548281601751039932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: pNote
+      value: 
+      objectReference: {fileID: 1948941768332753437, guid: b15a0bcd33b84d74bae3a4a57df22ff5, type: 3}
+    - target: {fileID: 3548281601751039932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: rNote
+      value: 
+      objectReference: {fileID: 839034255109913547, guid: 5085b2417ee025942aa913245ca9834f, type: 3}
+    - target: {fileID: 3548281601751039932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: yNote
+      value: 
+      objectReference: {fileID: 3304138462999017025, guid: 628cc10a6e91ef842a9f4f5c32c7595f, type: 3}
     - target: {fileID: 3548281601751039932, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: actionName
       value: Yellow
@@ -1908,9 +1963,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
     - target: {fileID: 6524728743210848086, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: bNote
+      value: 
+      objectReference: {fileID: 1640788236917240985, guid: 3dd01459e96c9474d89adae2ae712d61, type: 3}
+    - target: {fileID: 6524728743210848086, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: gNote
+      value: 
+      objectReference: {fileID: 998332438910537969, guid: f44555c58b9ff2d4ab63e86bf1b26c8b, type: 3}
+    - target: {fileID: 6524728743210848086, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: gauge
       value: 
       objectReference: {fileID: 780363325}
+    - target: {fileID: 6524728743210848086, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: pNote
+      value: 
+      objectReference: {fileID: 1948941768332753437, guid: b15a0bcd33b84d74bae3a4a57df22ff5, type: 3}
+    - target: {fileID: 6524728743210848086, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: rNote
+      value: 
+      objectReference: {fileID: 839034255109913547, guid: 5085b2417ee025942aa913245ca9834f, type: 3}
+    - target: {fileID: 6524728743210848086, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: yNote
+      value: 
+      objectReference: {fileID: 3304138462999017025, guid: 628cc10a6e91ef842a9f4f5c32c7595f, type: 3}
     - target: {fileID: 6524728743210848086, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: actionName
       value: Purple
@@ -1924,9 +1999,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
     - target: {fileID: 7549043038549315759, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: bNote
+      value: 
+      objectReference: {fileID: 1640788236917240985, guid: 3dd01459e96c9474d89adae2ae712d61, type: 3}
+    - target: {fileID: 7549043038549315759, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: gNote
+      value: 
+      objectReference: {fileID: 998332438910537969, guid: f44555c58b9ff2d4ab63e86bf1b26c8b, type: 3}
+    - target: {fileID: 7549043038549315759, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: gauge
       value: 
       objectReference: {fileID: 780363325}
+    - target: {fileID: 7549043038549315759, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: pNote
+      value: 
+      objectReference: {fileID: 1948941768332753437, guid: b15a0bcd33b84d74bae3a4a57df22ff5, type: 3}
+    - target: {fileID: 7549043038549315759, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: rNote
+      value: 
+      objectReference: {fileID: 839034255109913547, guid: 5085b2417ee025942aa913245ca9834f, type: 3}
+    - target: {fileID: 7549043038549315759, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: yNote
+      value: 
+      objectReference: {fileID: 3304138462999017025, guid: 628cc10a6e91ef842a9f4f5c32c7595f, type: 3}
     - target: {fileID: 7549043038549315759, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: actionName
       value: Red
@@ -1940,9 +2035,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a0a814bb55a0e264bad7a8a38c5df5fa, type: 2}
     - target: {fileID: 8224210545388659037, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: bNote
+      value: 
+      objectReference: {fileID: 1640788236917240985, guid: 3dd01459e96c9474d89adae2ae712d61, type: 3}
+    - target: {fileID: 8224210545388659037, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: gNote
+      value: 
+      objectReference: {fileID: 998332438910537969, guid: f44555c58b9ff2d4ab63e86bf1b26c8b, type: 3}
+    - target: {fileID: 8224210545388659037, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: gauge
       value: 
       objectReference: {fileID: 780363325}
+    - target: {fileID: 8224210545388659037, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: pNote
+      value: 
+      objectReference: {fileID: 1948941768332753437, guid: b15a0bcd33b84d74bae3a4a57df22ff5, type: 3}
+    - target: {fileID: 8224210545388659037, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: rNote
+      value: 
+      objectReference: {fileID: 839034255109913547, guid: 5085b2417ee025942aa913245ca9834f, type: 3}
+    - target: {fileID: 8224210545388659037, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: yNote
+      value: 
+      objectReference: {fileID: 3304138462999017025, guid: 628cc10a6e91ef842a9f4f5c32c7595f, type: 3}
     - target: {fileID: 8224210545388659037, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: actionName
       value: Green
