@@ -2053,11 +2053,11 @@ PrefabInstance:
     - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: missClip
       value: 
-      objectReference: {fileID: 8300000, guid: 5e6e299b5f1b3044ca455c83031b218e, type: 3}
+      objectReference: {fileID: 8300000, guid: 1971630b9672746499c727412317c7b1, type: 3}
     - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: emptyClip
       value: 
-      objectReference: {fileID: 8300000, guid: 083f968e9bfcadc4680a0bf719672ff5, type: 3}
+      objectReference: {fileID: 8300000, guid: 1971630b9672746499c727412317c7b1, type: 3}
     - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: introClip
       value: 
@@ -2088,7 +2088,7 @@ PrefabInstance:
       objectReference: {fileID: 297389921}
     - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: trackFiles.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: 'trackFiles.Array.data[0]'
@@ -2097,7 +2097,11 @@ PrefabInstance:
     - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: 'trackFiles.Array.data[1]'
       value: 
-      objectReference: {fileID: 4900000, guid: 788f8cd35430dab40b6cad49f66a05f9, type: 3}
+      objectReference: {fileID: 4900000, guid: 9574fbdd4e42c214a8e9755a7361c89c, type: 3}
+    - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: 'trackFiles.Array.data[2]'
+      value: 
+      objectReference: {fileID: 4900000, guid: 4c2dcfeddb3497640947a773ce3bba78, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

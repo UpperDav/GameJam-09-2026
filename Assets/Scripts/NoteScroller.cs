@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PuppetHero
 {
@@ -13,10 +14,11 @@ namespace PuppetHero
         [SerializeField] private float noteSpeed = 4f;
         [SerializeField] private StringManager? stringManager;
 
+        [Header("Audio Sources")]
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private AudioSource musicSource;
 
-        [Header("Hit feedback SFX")]
+        [Header("Hit Feedback SFX")]
         [SerializeField] private AudioClip? missClip;
         [SerializeField] private AudioClip? emptyClip;
 
@@ -31,37 +33,85 @@ namespace PuppetHero
 
         private int currentTrackIndex = 0;
 
+        // Prevent the music from being started more than once.
+        private bool musicStarted = false;
+
         private void Start()
         {
             elapsedTime = 0f;
 
+            // Find StringManager if it wasn't assigned in the Inspector.
             if (stringManager == null)
             {
                 stringManager = FindFirstObjectByType<StringManager>();
 
                 if (stringManager == null)
                 {
-                    Debug.LogError("NoteScroller: StringManager not found!", this);
+                    Debug.LogError(
+                        "NoteScroller: StringManager not found!",
+                        this
+                    );
+
                     return;
                 }
             }
 
+            // Make sure we have tracks.
             if (trackFiles.Count == 0)
             {
-                Debug.LogError("NoteScroller: No track files assigned!", this);
+                Debug.LogError(
+                    "NoteScroller: No track files assigned!",
+                    this
+                );
+
                 return;
             }
 
+            // Make sure music is assigned.
             if (musicClip == null)
             {
-                Debug.LogError("NoteScroller: No music clip assigned!", this);
+                Debug.LogError(
+                    "NoteScroller: No music clip assigned!",
+                    this
+                );
+
                 return;
             }
 
+            // Make sure the music AudioSource is assigned.
             if (musicSource == null)
             {
-                Debug.LogError("NoteScroller: Music AudioSource not assigned!", this);
+                Debug.LogError(
+                    "NoteScroller: Music AudioSource not assigned!",
+                    this
+                );
+
                 return;
+            }
+
+            // Warn about missing SFX setup.
+            if (audioSource == null)
+            {
+                Debug.LogError(
+                    "NoteScroller: SFX AudioSource not assigned!",
+                    this
+                );
+            }
+
+            if (missClip == null)
+            {
+                Debug.LogWarning(
+                    "NoteScroller: Miss SFX clip is not assigned!",
+                    this
+                );
+            }
+
+            if (emptyClip == null)
+            {
+                Debug.LogWarning(
+                    "NoteScroller: Empty SFX clip is not assigned!",
+                    this
+                );
             }
 
             LoadTrack(currentTrackIndex);
@@ -70,13 +120,9 @@ namespace PuppetHero
 
             stringManager.RegisterOnAllStringBroken(StopSpawning);
 
-            // Start the music once.
+            // Start the music.
             // It will continue looping while the note tracks change.
             PlayMusic();
-        }
-
-        private void OnDestroy()
-        {
         }
 
         private void LoadTrack(int index)
@@ -100,7 +146,9 @@ namespace PuppetHero
             }
 
             track.Clear();
+
             lastIndex = -1;
+
             elapsedTime = delay;
 
             string[] lines = trackFile.text.Split('\n');
@@ -115,6 +163,7 @@ namespace PuppetHero
                 return;
             }
 
+            // First line contains BPM.
             if (!int.TryParse(lines[0].Trim(), out int beat))
             {
                 Debug.LogError(
@@ -177,17 +226,35 @@ namespace PuppetHero
             }
         }
 
+        // ==========================================
+        // SOUND EFFECTS
+        // ==========================================
+
         public void PlayMissSound()
         {
-            if (audioSource != null && missClip != null)
-                audioSource.PlayOneShot(missClip, 0.3f);
+            if (audioSource == null || missClip == null)
+                return;
+
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.PlayOneShot(missClip, 1f);
+
+            audioSource.pitch = 1f;
         }
 
         public void PlayEmptyClickSound()
         {
-            if (audioSource != null && emptyClip != null)
-                audioSource.PlayOneShot(emptyClip, 0.1f);
+            if (audioSource == null || emptyClip == null)
+                return;
+
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.PlayOneShot(emptyClip, 1f);
+
+            audioSource.pitch = 1f;
         }
+
+        // ==========================================
+        // UPDATE
+        // ==========================================
 
         private void Update()
         {
@@ -212,8 +279,11 @@ namespace PuppetHero
                         String preferredString =
                             strings[(int)color].GetComponent<String>();
 
-                        if (preferredString != null && !preferredString.isCut)
+                        if (preferredString != null &&
+                            !preferredString.isCut)
+                        {
                             s = preferredString;
+                        }
                     }
 
                     // If the preferred string is unavailable,
@@ -231,7 +301,10 @@ namespace PuppetHero
                             continue;
 
                         s = availableStrings[
-                            UnityEngine.Random.Range(0, availableStrings.Count)
+                            UnityEngine.Random.Range(
+                                0,
+                                availableStrings.Count
+                            )
                         ];
                     }
 
@@ -279,23 +352,65 @@ namespace PuppetHero
             LoadTrack(nextIndex);
         }
 
+        // ==========================================
+        // MUSIC
+        // ==========================================
+
         public void PlayMusic()
         {
+            // Don't start the music more than once.
+            if (musicStarted)
+                return;
+
             if (musicClip == null)
             {
-                Debug.LogError("NoteScroller: Missing music clip!", this);
+                Debug.LogError(
+                    "NoteScroller: Missing music clip!",
+                    this
+                );
+
                 return;
             }
 
             if (musicSource == null)
             {
-                Debug.LogError("NoteScroller: Missing music AudioSource!", this);
+                Debug.LogError(
+                    "NoteScroller: Missing music AudioSource!",
+                    this
+                );
+
                 return;
             }
 
+            musicStarted = true;
+
+            musicSource.Stop();
+
             musicSource.clip = musicClip;
             musicSource.loop = true;
+
             musicSource.Play();
+        }
+
+        public void ResetGame()
+        {
+            enabled = true;
+
+            elapsedTime = 0f;
+            lastIndex = -1;
+            currentTrackIndex = 0;
+            musicStarted = false;
+
+            track.Clear();
+
+            LoadTrack(currentTrackIndex);
+
+            if (musicSource != null)
+            {
+                musicSource.Stop();
+            }
+
+            PlayMusic();
         }
     }
 }

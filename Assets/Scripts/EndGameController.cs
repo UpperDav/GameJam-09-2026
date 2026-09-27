@@ -14,6 +14,7 @@ namespace PuppetHero
         [SerializeField] private TMP_Text? message;
         [SerializeField] private Button? replayButton;
         [SerializeField] private Button? mainMenuButton;
+        [SerializeField] private NoteScroller? noteScroller;
 
         [Header("Scene to return to")]
         [SerializeField] private string mainMenuSceneName = "MainMenu";
@@ -73,6 +74,7 @@ namespace PuppetHero
 
         public void Replay()
         {
+            noteScroller.ResetGame();
             Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
