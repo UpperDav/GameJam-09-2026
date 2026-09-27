@@ -70,7 +70,8 @@ namespace PuppetHero
 
             stringManager.RegisterOnAllStringBroken(StopSpawning);
 
-            // Start the music from the beginning.
+            // Start the music once.
+            // It will continue looping while the note tracks change.
             PlayMusic();
         }
 
@@ -269,15 +270,12 @@ namespace PuppetHero
 
             int nextIndex = currentTrackIndex + 1;
 
-            // All track files have finished.
+            // Loop back to the first track file.
             if (nextIndex >= trackFiles.Count)
-            {
                 nextIndex = 0;
 
-                // Restart the music from the beginning.
-                PlayMusic();
-            }
-
+            // Only change the note track.
+            // The music keeps playing continuously.
             LoadTrack(nextIndex);
         }
 
@@ -295,9 +293,8 @@ namespace PuppetHero
                 return;
             }
 
-            musicSource.Stop();
             musicSource.clip = musicClip;
-            musicSource.loop = false;
+            musicSource.loop = true;
             musicSource.Play();
         }
     }
