@@ -93,7 +93,7 @@ namespace PuppetHero
                 if (activeNoteCount <= 0)
                 {
                     Debug.Log("Player clicked on empty string track: " + colorName);
-                    gauge.Decrease(gauge.emptyNoteDecrease);
+                    gauge?.Decrease(gauge.emptyNoteDecrease);
                     (noteScroller ?? getNoteScroller())?.PlayEmptyClickSound();
                 }
             }
