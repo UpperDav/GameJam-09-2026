@@ -16,6 +16,7 @@ namespace PuppetHero
         private int maxValue = InitValue;
         private int cumlativeValue = 0;
         public Slider gaugeSlider;
+        public StringManager stringManager;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
@@ -81,11 +82,8 @@ namespace PuppetHero
 
         private void CutAString()
         {
-            // Selecting the random string to cut
-
-            // Cutting the string from the character
-
-            // Cuttin the string for the gameplay
+            if (stringManager != null)
+                stringManager.BreakRandomString();
         }
     }
 }

@@ -42,7 +42,6 @@ public class LimbString : MonoBehaviour
         if (isBroken && !hasBeenBroken)
         {
             Break();
-            hasBeenBroken = true;
             return;
         }
 
@@ -76,8 +75,13 @@ public class LimbString : MonoBehaviour
         IsPulled = false;
     }
 
-    void Break()
+    public void Break()
     {
+        if (hasBeenBroken)
+            return;
+
+        isBroken = true;
+        hasBeenBroken = true;
         targetJoint.enabled = false;
         targetJoint.maxForce = 0f;
 

@@ -97,6 +97,19 @@ public class StringManager : MonoBehaviour
         }
     }
 
+    public bool BreakRandomString()
+    {
+        List<LimbString> availableStrings = limbStrings.FindAll(
+            stringItem => stringItem != null && !stringItem.isBroken);
+
+        if (availableStrings.Count == 0)
+            return false;
+
+        int randomIndex = Random.Range(0, availableStrings.Count);
+        availableStrings[randomIndex].Break();
+        return true;
+    }
+
     IEnumerator FlailCoroutine()
     {
         float elapsed = 0f;
