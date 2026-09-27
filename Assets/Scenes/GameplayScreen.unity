@@ -1083,7 +1083,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: aee3c3558b1817841a6ffe84da72d657, type: 3}
+  m_Resource: {fileID: 8300000, guid: a445b846c900fce45b80dca55e37262b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1970,7 +1970,7 @@ PrefabInstance:
     - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: musicClip
       value: 
-      objectReference: {fileID: 8300000, guid: aee3c3558b1817841a6ffe84da72d657, type: 3}
+      objectReference: {fileID: 8300000, guid: a445b846c900fce45b80dca55e37262b, type: 3}
     - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
       propertyPath: audioSource
       value: 
@@ -1991,6 +1991,18 @@ PrefabInstance:
       propertyPath: stringManager
       value: 
       objectReference: {fileID: 297389921}
+    - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: trackFiles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: 'trackFiles.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4900000, guid: dcd1fb071b10c234cb6fcfb8867a17bd, type: 3}
+    - target: {fileID: 8379354976287416729, guid: 69d2d8da95a1f7d40aa49ceb1c2d5eb6, type: 3}
+      propertyPath: 'trackFiles.Array.data[1]'
+      value: 
+      objectReference: {fileID: 4900000, guid: 788f8cd35430dab40b6cad49f66a05f9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

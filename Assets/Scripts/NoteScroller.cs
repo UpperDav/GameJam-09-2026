@@ -1,19 +1,18 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace PuppetHero
 {
-
     public class NoteScroller : MonoBehaviour
     {
         [SerializeField] private List<GameObject> strings = new();
         [SerializeField] private float delay = 1f;
-        [SerializeField] private TextAsset? trackFile;
+        [SerializeField] private List<TextAsset> trackFiles = new();
         [SerializeField] private float noteSpeed = 4f;
         [SerializeField] private StringManager? stringManager;
+
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private AudioSource introSource;
         [SerializeField] private AudioSource musicSource;
@@ -21,6 +20,8 @@ namespace PuppetHero
         [Header("Hit feedback SFX")]
         [SerializeField] private AudioClip? missClip;
         [SerializeField] private AudioClip? emptyClip;
+
+        [Header("Music")]
         [SerializeField] private AudioClip? introClip;
         [SerializeField] private AudioClip? musicClip;
 
@@ -29,7 +30,106 @@ namespace PuppetHero
         private List<List<String.StringColor>> track = new();
         private float step = 1f;
         private int lastIndex = -1;
+
+        private int currentTrackIndex = 0;
         private bool musicStarted = false;
+
+        private void Start()
+        {
+            elapsedTime = 0f;
+
+            if (stringManager == null)
+            {
+                stringManager = FindFirstObjectByType<StringManager>();
+
+                if (stringManager == null)
+                {
+                    Debug.LogError("NoteScroller: StringManager not found!", this);
+                    return;
+                }
+            }
+
+            if (trackFiles.Count == 0)
+            {
+                Debug.LogError("NoteScroller: No track files assigned!", this);
+                return;
+            }
+
+            if (musicClip == null)
+            {
+                Debug.LogError("NoteScroller: No music clip assigned!", this);
+                return;
+            }
+
+            LoadTrack(currentTrackIndex);
+
+            Note.speed = noteSpeed;
+
+            stringManager.RegisterOnAllStringBroken(StopSpawning);
+
+            PlayMusic();
+        }
+
+        private void OnDestroy()
+        {
+        }
+
+        private void LoadTrack(int index)
+        {
+            if (trackFiles.Count == 0)
+                return;
+
+            currentTrackIndex = index % trackFiles.Count;
+
+            TextAsset trackFile = trackFiles[currentTrackIndex];
+
+            if (trackFile == null)
+            {
+                Debug.LogError($"NoteScroller: Track file at index {currentTrackIndex} is null!", this);
+                track.Clear();
+                return;
+            }
+
+            track.Clear();
+            lastIndex = -1;
+            elapsedTime = delay;
+
+            string[] lines = trackFile.text.Split('\n');
+
+            if (lines.Length == 0)
+            {
+                Debug.LogError($"NoteScroller: Track file '{trackFile.name}' is empty!", this);
+                return;
+            }
+
+            if (!int.TryParse(lines[0].Trim(), out int beat))
+            {
+                Debug.LogError(
+                    $"NoteScroller: Could not read BPM from first line of '{trackFile.name}'.",
+                    this
+                );
+                return;
+            }
+
+            step = 60f / beat;
+
+            foreach (string line in lines.Skip(1))
+            {
+                List<String.StringColor> colors = new();
+
+                foreach (char c in line)
+                {
+                    if (char.IsWhiteSpace(c))
+                        continue;
+
+                    colors.Add(GetColor(c));
+                }
+
+                track.Add(colors);
+            }
+
+            Debug.Log($"Loaded track file: {trackFile.name}");
+        }
 
         private String.StringColor GetColor(char c)
         {
@@ -40,66 +140,27 @@ namespace PuppetHero
                 'p' => String.StringColor.purple,
                 'r' => String.StringColor.red,
                 'y' => String.StringColor.yellow,
-                _ => throw new ArgumentException($"Cannot convert character '{c}' to a valid String.Color value")
+
+                _ => throw new ArgumentException(
+                    $"Cannot convert character '{c}' to a valid String.StringColor value"
+                )
             };
-        }
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-            elapsedTime = 0f;
-
-            // Auto-find StringManager if not assigned in Inspector
-            if (stringManager == null)
-            {
-                stringManager = FindFirstObjectByType<StringManager>();
-                if (stringManager == null)
-                {
-                    Debug.LogError("NoteScroller: StringManager not found!", this);
-                    return;
-                }
-            }
-
-            string[] lines = trackFile!.text.Split('\n');
-            int beat = int.Parse(lines[0]);
-            step = 60f / beat;
-
-            foreach (string line in lines.Skip(1))
-            {
-                List<String.StringColor> colors = new();
-                foreach (char c in line)
-                {
-                    if (char.IsWhiteSpace(c))
-                        continue;
-
-                    colors.Add(GetColor(c));
-                }
-                track.Add(colors);
-            }
-
-            Note.speed = noteSpeed;
-
-            if (stringManager != null)
-            {
-                stringManager.RegisterOnAllStringBroken(StopSpawning);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            //if (stringManager != null)
-            //stringManager.OnHanged -= StopSpawning;
         }
 
         private void StopSpawning()
         {
             enabled = false;
-            musicSource.Stop();
-            introSource.Stop();
+
+            if (musicSource != null)
+                musicSource.Stop();
+
+            if (introSource != null)
+                introSource.Stop();
 
             foreach (GameObject s in strings)
             {
                 String str = s.GetComponent<String>();
+
                 if (str != null)
                     str.ClearAllNotes();
             }
@@ -117,8 +178,7 @@ namespace PuppetHero
                 audioSource.PlayOneShot(emptyClip, 0.1f);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             if (track.Count == 0 || strings.Count == 0)
                 return;
@@ -126,39 +186,42 @@ namespace PuppetHero
             elapsedTime += Time.deltaTime;
 
             int index = GetIndex();
-            if (index != lastIndex && enabled)
-            {
-                if (!musicStarted)
-                {
-                    musicStarted = true;
-                    Debug.Log("Starting music");
-                    PlayMusic();
-                }
 
+            if (index != lastIndex && index >= 0)
+            {
                 List<String.StringColor> colors = track[index];
-                foreach (String.StringColor color in track[index])
+
+                foreach (String.StringColor color in colors)
                 {
-                    // Try to use the string at the color's index first
                     String? s = null;
+
+                    // Try to use the preferred string for this color.
                     if ((int)color < strings.Count)
                     {
-                        String preferredString = strings[(int)color].GetComponent<String>();
+                        String preferredString =
+                            strings[(int)color].GetComponent<String>();
+
                         if (preferredString != null && !preferredString.isCut)
                             s = preferredString;
                     }
 
-                    // If that string is cut, find any available string
+                    // If the preferred string is unavailable,
+                    // choose another available string.
                     if (s == null)
                     {
                         List<String> availableStrings = strings
-                            .FindAll(item => item != null && item.GetComponent<String>() != null &&
-                                             !item.GetComponent<String>().isCut)
+                            .FindAll(item =>
+                                item != null &&
+                                item.GetComponent<String>() != null &&
+                                !item.GetComponent<String>().isCut)
                             .ConvertAll(item => item.GetComponent<String>());
 
                         if (availableStrings.Count == 0)
                             continue;
 
-                        s = availableStrings[UnityEngine.Random.Range(0, availableStrings.Count)];
+                        s = availableStrings[
+                            UnityEngine.Random.Range(0, availableStrings.Count)
+                        ];
                     }
 
                     s.CreateNote();
@@ -166,17 +229,20 @@ namespace PuppetHero
 
                 lastIndex = index;
             }
-            else if (lastIndex == track.Count - 1)
+
+            // The current track file has finished.
+            if (lastIndex == track.Count - 1)
             {
-                elapsedTime = delay;
-                lastIndex = -1;
+                StartNextTrack();
             }
         }
 
         private int GetIndex()
         {
             float time = elapsedTime - delay;
+
             int ret = -1;
+
             while (time >= step)
             {
                 time -= step;
@@ -186,29 +252,49 @@ namespace PuppetHero
             return Mathf.Min(ret, track.Count - 1);
         }
 
+        private void StartNextTrack()
+        {
+            if (trackFiles.Count == 0)
+                return;
+
+            int nextIndex = currentTrackIndex + 1;
+
+            // Loop back to the first track file.
+            if (nextIndex >= trackFiles.Count)
+                nextIndex = 0;
+
+            LoadTrack(nextIndex);
+        }
+
         private void PlayMusic()
         {
-            if (introClip == null || musicClip == null)
+            if (musicClip == null)
             {
-                Debug.LogError("Missing intro or music clip!");
+                Debug.LogError("NoteScroller: Missing music clip!", this);
                 return;
             }
 
-            double startTime = AudioSettings.dspTime + 0.1;
-            double mainMusicTime = startTime + introClip.length;
-
-            // Intro
-            introSource.clip = introClip;
-            introSource.loop = false;
-            introSource.PlayScheduled(startTime);
-
-            // Main music
             musicSource.clip = musicClip;
             musicSource.loop = true;
-            musicSource.PlayScheduled(mainMusicTime);
+
+            // Play the intro first, then start the looping music.
+            if (introClip != null)
+            {
+                double startTime = AudioSettings.dspTime + 0.1;
+                double musicStartTime = startTime + introClip.length;
+
+                introSource.clip = introClip;
+                introSource.loop = false;
+                introSource.PlayScheduled(startTime);
+
+                musicSource.PlayScheduled(musicStartTime);
+            }
+            else
+            {
+                musicSource.Play();
+            }
 
             musicStarted = true;
         }
-
     }
 }
