@@ -19,6 +19,8 @@ namespace PuppetHero
 
         internal String? parent;
 
+        internal bool setToDie = false;
+
         private void Awake()
         {
             getGauge();
@@ -37,6 +39,7 @@ namespace PuppetHero
 
             if (canBeHit && controller!.IsPressed(controlName))
             {
+                Debug.Log($"Calling Gauge.Increase() from instance #{GetHashCode()}");
                 (gauge ?? getGauge()).Increase(value);
                 parent!.KillNote(gameObject);
             }
@@ -49,6 +52,10 @@ namespace PuppetHero
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            if (setToDie)
+                return;
+
+            Debug.Log($"Calling Gauge.Decrease() from instance #{GetHashCode()}");
             (gauge ?? getGauge()).Decrease(value);
             parent!.KillNote(gameObject);
         }

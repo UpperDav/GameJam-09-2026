@@ -16,23 +16,21 @@ namespace PuppetHero
         [SerializeField] private int maxValue;
 
         private int cumlativeValue = 0;
-        [SerializeField] private Slider gaugeSlider;
-        [SerializeField] private StringManager stringManager;
+        [SerializeField] private Slider? gaugeSlider;
+        [SerializeField] private StringManager? stringManager;
+
+        private void Awake()
+        {
+            gaugeSlider = GetComponent<Slider>();
+        }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             value = InitValue;
             maxValue = InitValue;
-
-            if (gaugeSlider == null)
-            {
-                Debug.LogError("Gauge: Slider reference is missing.", this);
-                return;
-            }
-
-            gaugeSlider.maxValue = InitValue;
-            gaugeSlider.value = 0;
+            gaugeSlider!.maxValue = InitValue;
+            gaugeSlider!.value = 0;
         }
 
         // Update is called once per frame
@@ -45,8 +43,7 @@ namespace PuppetHero
         {
             int prevValue = value;
             value = Mathf.Max(0, value - v);
-            if (gaugeSlider != null)
-                gaugeSlider.value = InitValue - value;
+            gaugeSlider!.value = InitValue - value;
             cumlativeValue = 0;
             PublicHappy = false;
 
@@ -78,9 +75,11 @@ namespace PuppetHero
 
         public void Increase(int v)
         {
+            Debug.Log($"Gauge.Increase() called");
+            Debug.Log($"Before update: value = {value}");
             value = Mathf.Min(maxValue, value + v);
-            if (gaugeSlider != null)
-                gaugeSlider.value = InitValue - value;
+            Debug.Log($"After update: value = {value}");
+            gaugeSlider!.value = InitValue - value;
             cumlativeValue++;
 
             if (cumlativeValue >= 10)
@@ -91,6 +90,7 @@ namespace PuppetHero
         {
             if (stringManager != null)
                 stringManager.BreakRandomString();
+            String.CutRandom();
         }
     }
 }
