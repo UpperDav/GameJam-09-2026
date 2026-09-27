@@ -51,21 +51,21 @@ namespace PuppetHero
             {
                 CutAString();
             }
-            else if (prevValue >= InitValue / 4f && value < InitValue / 4f)
+            else if (prevValue > InitValue / 4f && value <= InitValue / 4f)
             {
                 maxValue = (int)(InitValue / 4f);
 
                 CutAString();
 
             }
-            else if (prevValue >= InitValue / 2 && value < InitValue / 2)
+            else if (prevValue > InitValue / 2 && value <= InitValue / 2)
             {
                 maxValue = (int)(InitValue / 2f);
 
                 CutAString();
 
             }
-            else if (prevValue >= 3 * InitValue / 4 && value < 3 * InitValue / 4)
+            else if (prevValue > 3 * InitValue / 4 && value <= 3 * InitValue / 4)
             {
                 maxValue = (int)(3f * InitValue / 4f);
 
