@@ -28,6 +28,14 @@ namespace PuppetHero
         [SerializeField] private StringColor color;
         [SerializeField] private Vector3 spawnPoint;
 
+        [Header("Empty-click detection")]
+        [SerializeField] private ControllerInput? controllerInput;
+        [SerializeField] private string actionName = "";
+
+        private int activeNoteCount = 0;
+
+        static private NoteScroller? noteScroller;
+
         static private List<String> instances = new();
 
         public bool isCut { get; private set; }
@@ -67,7 +75,34 @@ namespace PuppetHero
         // Update is called once per frame
         void Update()
         {
+            if (isCut || controllerInput == null)
+                return;
 
+            if (controllerInput.IsPressed(actionName) && activeNoteCount <= 0)
+            {
+                (noteScroller ?? getNoteScroller())?.PlayEmptyClickSound();
+            }
+        }
+
+        // Called by Note.cs when a note enters this track's hit zone.
+        public void NoteEnteredZone()
+        {
+            activeNoteCount++;
+        }
+
+        // Called by Note.cs when a note leaves this track's hit zone,
+        // whether by a successful hit or by missing (exiting uncaught).
+        public void NoteLeftZone()
+        {
+            activeNoteCount = Mathf.Max(0, activeNoteCount - 1);
+        }
+
+        static private NoteScroller? getNoteScroller()
+        {
+            if (noteScroller == null)
+                noteScroller = UnityEngine.Object.FindFirstObjectByType<NoteScroller>();
+
+            return noteScroller;
         }
 
         private void CreateNodeImpl(StringColor c)
