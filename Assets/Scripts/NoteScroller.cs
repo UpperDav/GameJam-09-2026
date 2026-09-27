@@ -117,7 +117,7 @@ namespace PuppetHero
                         s = availableStrings[UnityEngine.Random.Range(0, availableStrings.Count)];
                     }
 
-                    s.CreateNote(color);
+                    s.CreateNote();
                 }
 
                 lastIndex = index;
