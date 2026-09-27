@@ -1,7 +1,4 @@
-using Unity.AppUI.UI;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace PuppetHero
