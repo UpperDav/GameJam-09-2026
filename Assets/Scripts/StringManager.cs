@@ -74,8 +74,11 @@ public class StringManager : MonoBehaviour
     void HandleLimbBreak()
     {
         // SFX
-        audioSource.PlayOneShot(ropeBreak);
-        cameraShake.ShakeDefault();
+        if (audioSource != null && ropeBreak != null)
+            audioSource.PlayOneShot(ropeBreak);
+
+        if (cameraShake != null)
+            cameraShake.ShakeDefault();
 
         brokenCount++;
         int remaining = limbStrings.Count - brokenCount;
@@ -90,9 +93,19 @@ public class StringManager : MonoBehaviour
 
             if (bodyRigidbody != null)
             {
-                audioSource.PlayOneShot(ropeSwinging);
-                audioSource.PlayOneShot(choking);
+                if (audioSource != null)
+                {
+                    if (ropeSwinging != null)
+                        audioSource.PlayOneShot(ropeSwinging);
+                    if (choking != null)
+                        audioSource.PlayOneShot(choking);
+                }
+
                 StartCoroutine(FlailCoroutine());
+            }
+            else
+            {
+                FinishHanging();
             }
         }
     }
@@ -131,9 +144,22 @@ public class StringManager : MonoBehaviour
         }
         if (controllerInput != null)
             controllerInput.IsEnabled = false;
-        audioSource.Stop();
-        audioSource.PlayOneShot(neckBreak);
-        headSpriteRenderer.sprite = deadHeadSprite;
+
+        FinishHanging();
+    }
+
+    private void FinishHanging()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+            if (neckBreak != null)
+                audioSource.PlayOneShot(neckBreak);
+        }
+
+        if (headSpriteRenderer != null)
+            headSpriteRenderer.sprite = deadHeadSprite;
+
         OnHanged?.Invoke();
     }
 }

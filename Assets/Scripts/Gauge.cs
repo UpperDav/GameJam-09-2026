@@ -24,6 +24,13 @@ namespace PuppetHero
         {
             value = InitValue;
             maxValue = InitValue;
+
+            if (gaugeSlider == null)
+            {
+                Debug.LogError("Gauge: Slider reference is missing.", this);
+                return;
+            }
+
             gaugeSlider.maxValue = InitValue;
             gaugeSlider.value = 0;
         }
@@ -38,7 +45,8 @@ namespace PuppetHero
         {
             int prevValue = value;
             value = Mathf.Max(0, value - v);
-            gaugeSlider.value = InitValue - value;
+            if (gaugeSlider != null)
+                gaugeSlider.value = InitValue - value;
             cumlativeValue = 0;
             PublicHappy = false;
 
@@ -71,7 +79,8 @@ namespace PuppetHero
         public void Increase(int v)
         {
             value = Mathf.Min(maxValue, value + v);
-            gaugeSlider.value = InitValue - value;
+            if (gaugeSlider != null)
+                gaugeSlider.value = InitValue - value;
             cumlativeValue++;
 
             if (cumlativeValue >= 10)
@@ -82,7 +91,6 @@ namespace PuppetHero
         {
             if (stringManager != null)
                 stringManager.BreakRandomString();
-            String.CutRandom();
         }
     }
 }

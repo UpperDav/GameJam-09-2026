@@ -12,6 +12,7 @@ namespace PuppetHero
         [SerializeField] private float delay = 1f;
         [SerializeField] private TextAsset? trackFile;
         [SerializeField] private float noteSpeed = 4f;
+        [SerializeField] private StringManager stringManager;
 
         private float elapsedTime;
 
@@ -50,11 +51,28 @@ namespace PuppetHero
             }
 
             Note.speed = noteSpeed;
+
+            if (stringManager != null)
+                stringManager.OnHanged += StopSpawning;
+        }
+
+        private void OnDestroy()
+        {
+            if (stringManager != null)
+                stringManager.OnHanged -= StopSpawning;
+        }
+
+        private void StopSpawning()
+        {
+            enabled = false;
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (track.Count == 0 || strings.Count == 0)
+                return;
+
             elapsedTime += Time.deltaTime;
 
             int index = GetIndex();
@@ -63,11 +81,15 @@ namespace PuppetHero
                 List<String.StringColor> colors = track[index];
                 foreach (String.StringColor color in track[index])
                 {
-                    String s = strings[(int)color].GetComponent<String>();
-                    while (s.isCut)
-                    {
-                        s = strings[UnityEngine.Random.Range(0, strings.Count)].GetComponent<String>();
-                    }
+                    List<String> availableStrings = strings
+                        .FindAll(item => item != null && item.GetComponent<String>() != null &&
+                                         !item.GetComponent<String>().isCut)
+                        .ConvertAll(item => item.GetComponent<String>());
+
+                    if (availableStrings.Count == 0)
+                        return;
+
+                    String s = availableStrings[UnityEngine.Random.Range(0, availableStrings.Count)];
 
                     s.CreateNote(color);
                 }

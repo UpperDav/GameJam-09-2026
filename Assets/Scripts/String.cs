@@ -48,6 +48,11 @@ namespace PuppetHero
             instances.Add(this);
         }
 
+        private void OnDestroy()
+        {
+            instances.Remove(this);
+        }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -100,11 +105,13 @@ namespace PuppetHero
 
         static public void CutRandom()
         {
-            String inst = instances[Random.Range(0, instances.Count)];
-            while (inst.isCut)
-                inst = instances[Random.Range(0, instances.Count)];
+            List<String> availableStrings = instances.FindAll(
+                inst => inst != null && !inst.isCut);
 
-            inst.Cut();
+            if (availableStrings.Count == 0)
+                return;
+
+            availableStrings[Random.Range(0, availableStrings.Count)].Cut();
         }
 
         public void Cut()

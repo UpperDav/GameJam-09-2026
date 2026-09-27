@@ -20,9 +20,21 @@ public class EndGameController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        replayButton.onClick.AddListener(Replay);
-        mainMenuButton.onClick.AddListener(ReturnToMainMenu);
-        endGamePanel.SetActive(false);
+
+        if (replayButton != null)
+            replayButton.onClick.AddListener(Replay);
+        else
+            Debug.LogError("EndGameController: Replay button is not assigned.", this);
+
+        if (mainMenuButton != null)
+            mainMenuButton.onClick.AddListener(ReturnToMainMenu);
+        else
+            Debug.LogError("EndGameController: Main menu button is not assigned.", this);
+
+        if (endGamePanel != null)
+            endGamePanel.SetActive(false);
+        else
+            Debug.LogError("EndGameController: End game panel is not assigned.", this);
 
         var stringManager = FindFirstObjectByType<StringManager>();
         if (stringManager != null)
@@ -41,6 +53,12 @@ public class EndGameController : MonoBehaviour
 
     private void Show(string title, string description)
     {
+        if (heading == null || message == null || endGamePanel == null)
+        {
+            Debug.LogError("EndGameController: Game-over UI references are not assigned.", this);
+            return;
+        }
+
         heading.text = title;
         message.text = description;
         endGamePanel.SetActive(true);
